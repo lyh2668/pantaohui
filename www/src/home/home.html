@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.51banhui.com/Wap/Index/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<link type="text/css" rel="stylesheet" href="src/home/home.css">
+
+</head>
+
+<ion-view view-title="首页">
+	<ion-nav-buttons side="left">
+    <button class="button icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="">     舟山</button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+  	<div style="color=#444;">首页</div>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-ios-search button-positive"  style="background: transparent" ng-click=""></button>
+    <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click=""></button>
+  </ion-nav-buttons>
+	<!-- <ion-header-bar class="bar bar-header bar-pink nav-title-slide-ios7 item-input-inset">
+		<label class="item-input item-select left-input-wrapper">
+			<any class="input-label"></any>
+
+			<select>
+				<option selected="">上海</option>
+				<option>广州</option>
+			</select>
+		</label>
+		<label class="item-input-wrapper">
+			<i class="icon ion-ios-search placeholder-icon"></i>
+			<input type="search" placeholder="搜索">
+		</label>
+
+		<div class="reg">
+			<a href="http://www.51banhui.com/Wap/Index/index.html#" id="a_sign">登录</a>
+			<a href="http://www.51banhui.com/Wap/Index/index.html#" id="a_register">注册</a>
+		</div>
+	</ion-header-bar> -->
+<!-- 	<div class="bar bar-header bar-pink item-input-inset ">
+		<label class="item-input item-select left-input-wrapper">
+			<any class="input-label"></any>
+
+			<select>
+				<option selected="">上海</option>
+				<option>广州</option>
+			</select>
+		</label>
+		<i class="icon ion-chevron-down dropdown-toggle" dropdown-toggle></i>
+ 		<ul class="dropdown-menu" ng-show="userList">
+ 			<li ng-repeat="user in userList">
+ 				<a ng-click="getUser(user)" ng-bind="user"></a>
+ 			</li>
+ 		</ul>
+		<label class="item-input-wrapper">
+			<i class="icon ion-ios-search placeholder-icon"></i>
+			<input type="search" placeholder="搜索">
+		</label>
+
+		<div class="reg">
+			<a href="http://www.51banhui.com/Wap/Index/index.html#" id="a_sign">登录</a>
+			<a href="http://www.51banhui.com/Wap/Index/index.html#" id="a_register">注册</a>
+		</div>
+	</div> -->
+  <ion-content class="has-header" style="background: #eee">
+	<!-- 栅格 -->
+		<div class="news">
+			<div class="row">
+				<div class="con_hot col col-20"></div>
+				<div class="con_hot_news col col-75">
+					<a href="http://www.51banhui.com/Wap/meet/detail/id/1.html">
+						2015第十四届中国国际玩具及教育设备展览会</a>
+					<a href="http://www.51banhui.com/Wap/meet/detail/id/2.html">
+						2015 国际LNG储运技术装备展览会暨高峰论坛</a>				
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>	
+
+		<div class="banner_wrap">
+			<ion-slide-box active-slider="myActiveSlide">
+				<ion-slide>
+					<a href="http://www.51banhui.com/Wap/meet/detail/id/457.html">
+							<img alt="2016上海国际铸造展览会" src="images/banner1.jpg"></a>
+				</ion-slide>
+				<ion-slide>
+					<a href="http://www.51banhui.com/Wap/meet/detail/id/674.html">
+							<img alt="中国自控电气展" src="images/banner2.jpg"></a>
+				</ion-slide>
+				<ion-slide>
+					<a href="http://www.51banhui.com/Wap/meet/detail/id/228.html">
+							<img alt="2016年（春季）第3届广东互联网金融博览会" src="images/banner3.jpg"></a>
+				</ion-slide>
+				<ion-slide>
+					<a href="http://www.51banhui.com/Wap/meet/detail/id/275.html">
+						<img alt="2016中国智慧教育及在线课堂展" src="images/banner4.jpg"></a>
+				</ion-slide>
+			</ion-slide-box>
+		</div>
+
+		<!-- <div class="banner_wrap">
+			<p>{{ jsonDatas | json }}</p>
+		</div> -->
+
+		<div class="list" style="margin-top:10px">
+			<a class="item item-text-wrap" href="#/tab/home/meetDetail/{{ data.id }}" ng-repeat="data in jsonDatas">
+				<h2>
+					{{ data.title }}
+				</h2>
+				<p class="ion-ios-clock-outline">
+    			{{ data.start_time }}
+    		</p>
+    		<p class="ion-ios-location-outline">
+    			{{ data.area }}
+    		</p>
+    		<div class="free-hot">
+					<i class="free" ng-show="data.isfree">免</i>
+				</div>
+			</a>
+		</div>
+
+    <!-- <div class="list" style="margin-top:10px">
+    	<a class="item item-text-wrap" href="#" >
+    		<h2>
+    			2015第十四届中国国际玩具及教育设备展览会
+    		</h2>	
+    		<p class="ion-ios-clock-outline">
+    			2015-12-01 09:00
+    		</p>
+    		<p class="ion-ios-location-outline">
+    			上海新国际博览中心
+    		</p>
+    		<div class="free-hot">
+					<i class="free">免</i>
+				</div>
+    	</a>
+    	
+    	<a class="item item-text-wrap" href="#" >
+    		<h2>
+    			2015 国际LNG储运技术装备展览会暨高峰论坛
+    		</h2>	
+    		<p class="ion-ios-clock-outline">
+    			2015-12-01 09:00
+    		</p>
+    		<p class="ion-ios-location-outline">
+    			上海新国际博览中心
+    		</p>
+    		<div class="free-hot">
+					<i class="free">免</i>
+				</div>
+    	</a>
+
+    	<a class="item item-text-wrap" href="#" >
+    		<h2>
+    			CHINA-PHARM 2015第二十届中国国际医药（化妆品）工业展览会暨技术交流会
+    		</h2>	
+    		<p class="ion-ios-clock-outline">
+    			2015-12-01 09:00
+    		</p>
+    		<p class="ion-ios-location-outline">
+    			上海新国际博览中心
+    		</p>
+    		<div class="free-hot">
+					<i class="free">免</i>
+				</div>
+    	</a>
+		</div> -->
+    <!-- </div> -->
+  </ion-content>
+</ion-view>

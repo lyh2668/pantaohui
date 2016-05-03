@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link type="text/css" rel="stylesheet" href="src/meet/meet.css">
+
+</head>
+
+<ion-view hide-tabs="true" view-title="会议详情">
+	<ion-content class="padding">
+
+		<div class="detail_title">
+			<h1 class="detail_title_h1">{{ jsonData.title }}</h1>
+		</div>
+
+		<div class="detail_subTitle">
+			<p style="float:left">发布：{{ jsonData.create_time }}</p>
+			<p style="float:right">阅读：{{ jsonData.hits }} </p>
+		</div>
+
+		<div class="card" style="margin-top: 30px;">
+			<div class="item item-text-wrap item-icon-left">
+				<i class="icon ion-clock" style="font-size: 14px">{{ jsonData.start_time }}  {{ jsonData.end_time }}</i>
+			</div>
+			<div class="item item-text-wrap item-icon-left">
+				<i class="icon ion-ios-location-outline" style="font-size: 15px">北京中国国际展览中心</i>
+			</div>
+			<div class="item item-text-wrap item-icon-left">
+				<i class="icon ion-android-contact" style="font-size: 15px">已经有0人报名</i>
+			</div>
+		</div>
+
+		<div class="">
+			<pre data-ng-bind-html="jsonData.content | trustHtml"></pre>
+		</div>
+	</ion-content>
+</ion-view>

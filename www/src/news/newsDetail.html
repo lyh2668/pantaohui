@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link type="text/css" rel="stylesheet" href="src/news/news.css">
+
+</head>
+
+<ion-view hide-tabs="true" view-title="资讯详情">
+	<ion-content class="padding">
+
+		<div class="detail_title">
+			<h1 class="detail_title_h1">{{ detailInfo.title }}</h1>
+		</div>
+
+		<div class="detail_subTitle">
+			<p style="float:left">发布：{{ detailInfo.create_time }}</p>
+			<p style="float:right" class= "keywords">{{ detailInfo.keywords }} </p>
+		</div>
+
+		<div class="">
+			<pre data-ng-bind-html="content | trustHtml"></pre>
+		</div>
+	</ion-content>
+</ion-view>

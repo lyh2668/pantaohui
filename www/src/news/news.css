@@ -1,0 +1,75 @@
+.slide-tab{
+    display: table;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    background-color: #eff0f2;
+    /* border-bottom: 2px solid #00897B; */
+}
+
+.slide-tab li{
+    float: left;
+    line-height: 38px;
+    overflow: hidden;
+    padding: 0;
+    width: 50%;
+}
+
+.slide-tab a{
+    /* background-color: #eff0f2; */
+    /* border-bottom: 1px solid #fff; */
+    text-align: center;
+    color: #888;
+    font-weight: 500;
+    display: block;
+    letter-spacing: 0;
+    outline: none;
+    padding: 0 20px;
+    text-decoration: none;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    /* border-bottom: 2px solid #00897B; */
+}
+.current a{
+    /* color: #fff; */
+    color: #111;
+    background: #fff;
+    border-top: 2px solid #00897B;
+    /* background: #00897B; */
+}
+
+.create_time {
+    font-size: 13px;
+    : 10px;
+}
+
+.keywords {
+    font-size: 13px;
+    color: #e7608b !important;
+    margin-left: 5px;
+}
+
+.detail_title {
+    background-color: #fff;
+    padding: 15px 10px 5px;
+    overflow: hidden;
+}
+
+.detail_title_h1 {
+    font-size: 18px;
+    color: #000;
+    line-height: 25px;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* -webkit-box-orient: vertical; */
+    overflow: hidden;
+    max-height: 50px;
+}
+
+.detail_subTitle {
+    padding: 0 10px;
+    color: #777;
+    min-height: 30px;
+}

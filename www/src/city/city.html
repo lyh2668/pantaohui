@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <link href="/src/city/city.css" rel="stylesheet">
+  </head>
+
+  <ion-view hide-tabs="true" view-title="城市列表">
+<!--     <ion-header-bar class="bar-positive">
+      <div class="button" ng-click="scrollBottom()">
+        Scroll Bottom
+      </div>
+    </ion-header-bar> -->
+    <ion-header-bar class="bar-light bar-subheader">
+      <input type="search"
+             placeholder="   搜索城市"
+             ng-model="search"
+             ng-focus="searchFocused = true"
+             ng-blur="searchFocused = false"
+             ng-change="scrollTop()"
+             class="full-width">
+      <button ng-if="search.length"
+              class="button button-icon ion-ios-close input-button"
+              ng-click="clearSearch()">
+      </button>
+    </ion-header-bar>
+    <ion-content style="background: #eee">
+      <ion-list>
+        <ion-item class="my-item"
+           ng-repeat="item in getContacts()"
+           item-height="getItemHeight(item)"
+           id="{{ item.id }}"
+           ng-style="{'line-height': getItemHeight(item) + 'px'}"
+           ng-class="{'item-divider': item.isLetter}"
+           ng-click="item.letter || click(item.cityname)">
+          {{ item.letter || item.cityname }}
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-view>
+</html>
