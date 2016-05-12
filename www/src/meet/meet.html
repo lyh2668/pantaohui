@@ -1,46 +1,66 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link type="text/css" rel="stylesheet" href="src/meet/meet.css">
-	<!-- <script src="/templates/popMore.js"></script> -->
+  <!-- <link type="text/css" rel="stylesheet" href="src/meet/meet.css"> -->
 	<script type="text/ng-template" ng-include="'src/popover/popMore.html'"></script>
 </head>
 
 <ion-view view-title="">
 	<ion-nav-buttons side="left">
-    <button class="button icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="toCityList()" data-ng-init="getCity()">    {{ city }}</button>
+    <button class="button button-icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="toCityList()" data-ng-init="getCity()">    {{ city }}</button>
   </ion-nav-buttons>
   <ion-nav-title>
   	<div style="color=#444;">找会</div>
   </ion-nav-title>
   <ion-nav-buttons side="right">
-    <button class="button icon ion-ios-search button-positive"  style="background: transparent" ng-click=""></button>
-    <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click="popover.show($event)"></button>
+    <button class="button button-icon ion-ios-search button-positive"  style="background: transparent" ng-click="clickSearch()"></button>
+    <button class="button button-icon ion-funnel button-positive"  style="background: transparent" ng-click="toScreen()"></button>
+    <!-- <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click="popover.show($event)"></button> -->
   </ion-nav-buttons>
 
-	<ion-content class="" style="background: #eee">
+	<ion-content class="contentBkg">
 
 		<ion-refresher on-refresh="doRefresh()"
 									 pulling-text="下拉刷新..."
 									 refreshing-text="刷新中!"
 									 refreshing-icon="ion-loading-a">
 		</ion-refresher>
+    
+    <label class="item-input-wrapper" ng-show="showSearch" style="background: white">
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="search"
+               placeholder="搜索会议"
+               ng-model="search"
+               ng-focus="searchFocused = true"
+               ng-blur="searchFocused = false"
+               ng-change="scrollTop()"
+               class="full-width"
+               >
+        <a ng-if="search.length"
+           on-touch="clearSearch()">
+           <i class="icon ion-ios-close placeholder-icon"></i>
+         </a>
+      </label>
 
 		<div class="dropdown_bk">
-			<label class="button button-icon icon-right ion-arrow-down-b dropdown-toggle" dropdown-toggle>会议领域</label>
- 			<ul class="dropdown-menu" ng-show="userList">
- 				<li ng-repeat="user in userList">
- 					<a ng-click="getUser(user)" ng-bind="user"></a>
- 				</li>
- 			</ul>
+			<label class="button button-small button-icon icon-right ion-arrow-down-b" ng-click="clickMeetDomain()">{{ meetDomain }}</label>
+ 
+ 			<label class="button button-small button-icon icon-right ion-arrow-down-b" ng-click="clickMeetTime()">{{ meetTime }}</label>
+ 			<label class="button button-small button-icon icon-right ion-arrow-down-b" ng-click="clickMeetType()">{{ meetType }}</label>
 
- 			<label class="button button-icon icon-right ion-arrow-down-b dropdown-toggle" dropdown-toggle>会议时间</label>
- 			<label class="button button-icon icon-right ion-arrow-down-b dropdown-toggle" dropdown-toggle>会议类型</label>
-
+      <div class="list" ng-show="showMenu">
+        <ion-radio class="item" ng-repeat="item in menu" 
+                                ng-value="item" 
+                                ng-model="data.meetModelData" 
+                                ng-change="meetDataChange(item)">
+          {{ item }}
+        </ion-radio>
+      </div>
  			<!-- <select ng-model="meet.currentActivity" class="form-control" ng-options="act for act in meet.activities">
  			</select> -->
 
  		</div>
+
 		<div class="list">
 			<a class="item item-text-wrap" href="#/tab/meet/detail/{{data.id}}" ng-repeat="data in jsonDatas">
 				<h2>
@@ -59,20 +79,4 @@
 		</div>
 	</ion-content>
 </ion-view>
-
-<!-- <script id="templates/popMore.html" type="text/ng-template">
-  <ion-popover-view style="{
--webkit-transition: all 1s ease-out;
--moz-transition: all 1s ease-out;
--ms-transition: all 1s ease-out;
--o-transition: all 1s ease-out;
-transition: all 1s ease-out;  
-}">
-    <ion-content>
-      <div class="list">
-        <a class="item" href="＃" target="_blank">登陆</a>
-        <a class="item" href="＃" target="_blank">设置</a>
-      </div>
-    </ion-content>
-  </ion-popover-view>
-</script> -->
+</html>

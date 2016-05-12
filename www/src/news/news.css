@@ -1,3 +1,9 @@
+.bar-subheader {
+    margin: 0;
+    padding: 0;
+    height: 36px;
+}
+
 .slide-tab{
     display: table;
     overflow: hidden;
@@ -73,3 +79,4 @@
     color: #777;
     min-height: 30px;
 }
+

@@ -29,5 +29,7 @@
       "id": "cordova-plugin-wechat"
     }
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }

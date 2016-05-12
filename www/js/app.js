@@ -8,8 +8,8 @@
 
 // angular.module()
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.locals', 
-  'Routes', 'JsonServices', 'Home', 'Meet', 'News', 'City'])
+angular.module('starter', ['ionic', 'ngCordova', 'angularCSS', 'ngAnimate', 'angularSlideables',
+  'starter.locals', 'oc.lazyLoad', 'Routes'])
 
 .run(function($ionicPlatform, $templateCache) {
   $ionicPlatform.ready(function() {
@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
     }
   });
 })
@@ -52,6 +52,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   return function (input) {
     return $sce.trustAsHtml(input); 
   }
-});
+})
 
 // });

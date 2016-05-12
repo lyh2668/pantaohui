@@ -1,0 +1,72 @@
+.detail_title {
+	background-color: #fff;
+	padding: 15px 10px 5px;
+	overflow: hidden;
+}
+
+.detail_title_h1 {
+    font-size: 18px;
+    color: #000;
+    line-height: 25px;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    max-height: 50px;
+}
+
+.detail_subTitle {
+	padding: 0 10px;
+	color: #777;
+}
+
+.side_button {
+    width: 48px;
+    height: 48px;
+    position: fixed;
+    bottom: 35px;
+    right: 30px;
+    z-index: 100;
+    background: url("images/apply_button.png") #e7608b center no-repeat;
+    background-size: 75% 75%;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 0px 4px 12px -7px rgba(0, 0, 0, 0.15);
+
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+    opacity:0.9;
+}
+
+#side_animate .ng-hide {
+  opacity:0;
+}
+
+
+.side_button:hover {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+
+/* .side_button.ng-hide, .side_button.ng-show {
+
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+
+.side_button.ng-hide {
+    opacity:0;
+}
+
+.side_button .ng-hide .ng-hide-actiive {
+    opacity:0.9;
+}
+
+.side_button.ng-show {
+    opacity:0.9;
+}
+
+.side_button .ng-show .ng-show-actiive {
+    opacity:0;
+} */
+
+

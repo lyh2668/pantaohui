@@ -12,6 +12,12 @@
     <link href="css/meet.css" rel="stylesheet">
     <link href="css/txh.css" rel="stylesheet">
     <link href="css/news.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+
+    <link href="src/meet/meet.css" rel="stylesheet">
+    <link href="src/news/news.css" rel="stylesheet">
+    <link href="src/home/home.css" rel="stylesheet">
+    <link href="src/mine/mine.css" rel="stylesheet">
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -22,31 +28,30 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/angular-css/angular-css.min.js"></script>
     <script src="cordova.js"></script>
+    <script src="lib/oclazyload/dist/oclazyload.min.js"></script>
+    <script src="lib/oclazyload/dist/oclazyload.require.min.js"></script>
+    <script src="lib/requirejs/require.js"></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js"></script>
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
     <script src="js/routes.js"></script>
     <script src="js/locals.js"></script>
+    <script src="js/angularSlideables.js"></script>
 
-    <script src="src/home/homeCtl.js"></script>
-    <script src="src/meet/meetCtl.js"></script>
-    <script src="src/news/newsCtl.js"></script>
-    <script src="src/city/cityCtl.js"></script>
-    <script src="js/jsonService.js"></script>
+    <!-- <script src="js/jsonService.js"></script> -->
   </head>
-  <body ng-app="starter">
+  <body ng-app="starter" ui-router-styles>
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar bar-header nav-title-slide-ios7 bar-pink">
+    <ion-nav-bar class="bar nav-title-slide-ios7 bar-pink">
     	
       <ion-nav-back-button style="color: #fff">
       	返回
-			</ion-nav-back-button>
+	   </ion-nav-back-button>
     </ion-nav-bar>
     <!--
       The views will be rendered in the <ion-nav-view> directive below

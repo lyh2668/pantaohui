@@ -46,12 +46,16 @@ angular.module('News', [])
 })
 
 .controller('NewsDetailCtl', function ($scope, $stateParams, readJsonService, JSON_LOCAL_FILES, 
-	$sce, $ionicActionSheet, $ionicPopup) {
-	var id = $stateParams.id;
+	$sce, $ionicActionSheet, $ionicPopup, $location) {
+
+	$scope.id = $stateParams.id;
+	$scope.url = $location.path();
+
+	console.log($scope.url)
 
 	readJsonService.getLocalJsonData(JSON_LOCAL_FILES.PT_NEWS_LIST).then( function(datas) {
 		for (var i = 0; i < datas.length; ++i) {
-			if (id == datas[i].id) {
+			if ($scope.id == datas[i].id) {
 				$scope.detailInfo = datas[i];
 			}
 		}
@@ -61,7 +65,7 @@ angular.module('News', [])
 
 	readJsonService.getLocalJsonData(JSON_LOCAL_FILES.PT_NEWS_DATA).then( function(datas) {
 		for (var i = 0; i < datas.length; ++i) {
-			if (id == datas[i].id) {
+			if ($scope.id == datas[i].id) {
 				$scope.content = datas[i].content;
 			}
 		}
@@ -69,8 +73,19 @@ angular.module('News', [])
 
 	})
 
-	$scope.share = function(title, desc, url, thumb) {
-		ionicActionSheet.show({
+
+
+	$scope.share = function(title, desc, thumb) {
+
+		// if (typeof Wechat !== 'undefined') { 
+		// 	console.log("Wechat defined")
+		// } else {
+		// 	console.log("Wechat undefined")
+		// 	alert("Wechat plugin is not installed.");
+		// 	return
+		// }
+
+		$ionicActionSheet.show({
 			buttons: [
 				{ text: '<b>分享至微信朋友圈</b>' },
 				{ text: '分享给微信好友' }
@@ -81,36 +96,54 @@ angular.module('News', [])
 
 			},
 			buttonClicked: function(index) {
+
 				switch(index) {
 					case 0: {
-						$scope.shareViaWechat(WeChat.Scene.timeline, title, desc, url, thumb);
+						$scope.shareViaWechat(Wechat.Scene.TIMELINE, $scope.detailInfo.title, 
+							"蟠桃会资讯", $scope.url, $scope.detailInfo.thumb);
+						break;
 					}
 					case 1: {
-						$scope.shareViaWechat(WeChat.Scene.session, title, desc, url, thumb);
+						$scope.shareViaWechat(Wechat.Scene.SESSION, $scope.detailInfo.title, 
+							"蟠桃会资讯", $scope.url, $scope.detailInfo.thumb);
+						break;
 					}
 				}
+				return true
 			}
 		})
 	}
 
 	$scope.shareViaWechat = function(scene, title, desc, url, thumb) {
-		var msg = {
-			title: title ? titile : "没有标题",
-			description: desc ? desc : "没有描述信息",
-			url: url ? url : "#",
-			thumb: thumb ? thumb : null
+		
+		var params = {
+			scene: scene
 		}
 
-		WeChat.share(msg, scene, function() {
+		params.message = {
+			title: title ? title : "没有标题",
+			description: desc ? desc : "没有描述信息",
+			messageExt: "蟠桃会",
+			messageAction: "<action>dotalist</action>",
+			// url: url ? url : "#",
+			// thumb: thumb ? thumb : null,
+			media : { 
+				type: Wechat.Type.WEBPAGE,
+				image: thumb ? thumb : null,
+				webpageUrl: url ? "http://183.245.210.26:8080/#" + url : "#" 
+			}
+		}
+
+		Wechat.share(params, function() {
 			$ionicPopup.alert({
 				title: '分享成功',
 				template: '感谢您的支持！',
 				okText: '关闭'
 			});
-		}, function(res) {
+		}, function(reason) {
 			$ionicPopup.alert({
 				title: '分享失败',
-				template: '错误原因' + res,
+				template: '错误原因' + reason,
 				okText: '确定'
 			})
 		})

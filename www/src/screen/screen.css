@@ -1,0 +1,18 @@
+.wizard-item {
+	min-height: 35px;
+  height: 35px;
+  padding: 0px;
+  width: 100%;
+  line-height: 0px;
+  font-size: 14px;
+  border-color: #bbb;
+  border-radius: 0;
+}
+
+.col {
+	padding: 0;
+}
+
+.row {
+	padding: 0;
+}

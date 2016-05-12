@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link type="text/css" rel="stylesheet" href="src/login/login.css">
+</head>
+
+<ion-view view-title="登录" hide-tabs="true">
+	<ion-content>
+		<div class="site__container">
+
+			<div class="grid__container">
+
+				<form action="" method="post" class="form form--login">
+
+					<div class="form__field">
+						<label class="icon ion-android-person form__icon" for="login__username">
+							<span class="hidden">Username</span>
+						</label>
+						<input id="login__username" type="text" class="form__input" placeholder="用户名" required></div>
+
+					<div class="form__field">
+						<label class="icon ion-android-lock form__icon" for="login__password">
+							<span class="hidden">Password</span>
+						</label>
+						<input id="login__password" type="password" class="form__input" placeholder="密码" required></div>
+
+					<div class="form__field">
+						<input type="button" value="登录">
+					</div>
+
+				</form>
+
+				<p class="text--center">
+					没有用户名?
+					<a href="#">点击注册</a>
+					<span class="fontawesome-arrow-right"></span>
+				</p>
+
+				<div class="button button-full wechatLogin__button" ng-click="wechatLogin()">
+					<i class="wechatImg"></i>
+					<i class="" style="float:left">微信登录</i>
+				</div>
+
+			</div>
+
+		</div>
+	</ion-content>
+</ion-view>
+</html>

@@ -1,32 +1,31 @@
-.button.button-icon.input-button {
-  position: absolute;
-  right: 0;
-  top: 5px;
-  color: #bbb;
-}
 
-.item img {
+
+/* .item img {
   height: 60px;
   width: 60px;
   float: left;
   margin-top: 20px;
   margin-right: 10px;
 }
-
+ */
 .my-item.item {
   padding-top: 0;
   padding-bottom: 0;
 }
 
 .full-width {
-  width: 100%;
-
+  width: 90%;
+  margin-left: 3%;
   color:#333;
-  /* padding:0 25px 0 25px; */
+
   border:none;
   border-radius: 5px;
-  background: #eee;
+  background: transparent;
 
-  text-indent: 10px;
+  /* text-indent: 10px; */
 
+}
+
+.item-input-wrapper {
+  height: 33px;
 }

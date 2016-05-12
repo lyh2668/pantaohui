@@ -1,6 +1,6 @@
 <html>
   <head>
-    <link href="/src/city/city.css" rel="stylesheet">
+    <link href="src/city/city.css" rel="stylesheet">
   </head>
 
   <ion-view hide-tabs="true" view-title="城市列表">
@@ -10,17 +10,28 @@
       </div>
     </ion-header-bar> -->
     <ion-header-bar class="bar-light bar-subheader">
-      <input type="search"
+      <label class="item-input-wrapper">
+     <!--  <input type="search"
              placeholder="   搜索城市"
              ng-model="search"
              ng-focus="searchFocused = true"
              ng-blur="searchFocused = false"
              ng-change="scrollTop()"
-             class="full-width">
-      <button ng-if="search.length"
-              class="button button-icon ion-ios-close input-button"
-              ng-click="clearSearch()">
-      </button>
+             class="full-width"> -->
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="search"
+               placeholder="搜索城市"
+               ng-model="search"
+               ng-focus="searchFocused = true"
+               ng-blur="searchFocused = false"
+               ng-change="scrollTop()"
+               class="full-width">
+        <a ng-if="search.length"
+           on-touch="clearSearch()">
+           <i class="icon ion-ios-close placeholder-icon"></i>
+         </a>
+      </label>
+
     </ion-header-bar>
     <ion-content style="background: #eee">
       <ion-list>

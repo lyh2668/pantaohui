@@ -2,21 +2,20 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-	<link type="text/css" rel="stylesheet" href="src/news/news.css">
+	<!-- <link type="text/css" rel="stylesheet" href="src/news/news.css"> -->
 </head>
 
 <ion-view view-title="资讯">
+	
+	<ion-nav-buttons side="left">
+    <!-- <button class="button button-icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="">     舟山</button> -->
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon ion-ios-search button-positive"  style="background: transparent" ng-click=""></button>
+<!--     <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click=""></button> -->
+  </ion-nav-buttons>
 
-	<!-- 	<div class="tabs tabs-top tabs-stable">
-	<a class="tab-item active">热点</a>
-	<a class="tab-item">宝典</a>
-</div>
--->
-	<ion-content>
-		<!-- <div class="row">	
-		-->
-		<ul class="slide-tab">
+	<ul class="bar bar-subheader slide-tab ">
 			<li ng-class="slideIndex == 0 ? 'current':''" style="float: left">
 				<a href="#" ng-click="activeSlide(0)">热点</a>
 			</li>
@@ -24,36 +23,48 @@
 				<a href="#" ng-click="activeSlide(1)">宝典</a>
 			</li>
 		</ul>
+	<!-- <ion-content class="has-subheader"> -->
+
+		<!-- <div class="row">	
+		-->
+		
 		<!-- / tabs -->	
 		<!-- </div>	
 		-->
 		<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false" class="">
-			<ion-slide> <!-- 热点 -->
-				<div class="list">
-					<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in jsonHotDatas">
-						<img src="{{ data.thumb }}">				
-						<h2>{{ data.title }}</h2>
-						<p>
-							<label href="#" class="create_time">{{ data.create_time }}</label>
-							<label href="#" class="keywords">{{ data.keywords }}</label>
-						</p>
-					</a>
-				</div>
+			<ion-slide>
+				<!-- 热点 -->			
+				<ion-content class="has-subheader">
+					<div class="card">
+						<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in jsonHotDatas" style="background: #fafafa">
+							<img ng-src="{{ data.thumb }}">			
+							<h2>{{ data.title }}</h2>
+							<p>
+								<label href="#" class="create_time">{{ data.create_time }}</label>
+								<label href="#" class="keywords">{{ data.keywords }}</label>
+							</p>
+						</a>
+					</div>
+				</ion-content>
 			</ion-slide>
-			<ion-slide> <!-- 宝典 -->
-				<div class="list">
-					<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in jsonBdDatas">
-						<img src="{{ data.thumb }}">				
-						<h2>{{ data.title }}</h2>
-						<p>
-							<label href="#" class="create_time" style="margin-top: -20">{{ data.create_time }}</label>
-							<label href="#" class="keywords">{{ data.keywords }}</label>
-						</p>
-					</a>
-				</div>
+			<ion-slide>
+				<!-- 宝典 -->			
+				<ion-content class="has-subheader">
+					<div class="card">
+						<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in jsonBdDatas">
+							<img ng-src="{{ data.thumb }}">			
+							<h2>{{ data.title }}</h2>
+							<p>
+								<label href="#" class="create_time" style="margin-top: -20">{{ data.create_time }}</label>
+								<label href="#" class="keywords">{{ data.keywords }}</label>
+							</p>
+						</a>
+					</div>
+				</ion-content>
 			</ion-slide>
 
-		</ion-slide-box>
-	</ion-content>
+			</ion-slide-box>
+	<!-- </ion-content> -->
 
 </ion-view>
+</html>

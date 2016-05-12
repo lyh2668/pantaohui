@@ -21,6 +21,20 @@ body{
 .w100 {width: 100%;display: block;float:left;}
 /* top */
 
+.contentBkg {
+	background: #eee;
+}
+
+.button.button-positive.button-icon {
+	font-size: 14px;
+}
+
+.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before, .bar button.button-icon .icon:before, .bar button.button-icon:before, .bar button.button-icon.icon-left:before, .bar button.button-icon.icon-right:before {
+    vertical-align: top;
+    font-size: 22px;
+    line-height: 32px;
+}
+
 .two-lines-over {
 /* 	overflow : hidden;
 	text-overflow: ellipsis;
@@ -35,27 +49,42 @@ body{
 	width:100%;
 }
 
+.tabs-color-active-pink {
+	color: #e7608b;
+}
+
+.tabs-background-pink .tabs,
+.tabs-background-pink > .tabs {
+  background-color: #e7608b;
+  background-image: linear-gradient(0deg, #e6b500, #e6b500 50%, transparent 50%);
+  border-color: #e7608b; }
+
+.tabs-color-pink .tab-item {
+  color: #e7608b;
+  opacity: 1; }
+  .tabs-color-pink .tab-item .badge {
+    opacity: 0.4; }
+  .tabs-color-pink .tab-item.tab-item-active, .tabs-color-pink .tab-item.active, .tabs-color-pink .tab-item.activated {
+    color: #e7608b;
+    border: 1 solid #e7608b; }
+    .tabs-color-pink .tab-item.tab-item-active .badge, .tabs-color-pink .tab-item.active .badge, .tabs-color-pink .tab-item.activated .badge {
+      opacity: 1; }
+
 .bar-pink {
   border-color: transparent;
   background-color: #e7608b;
-  color: #fff; }
-
-.nishishabiba {
-	display: block;
-	margin-right: 20px;
-	padding:0 25px 0 25px;
+  color: #fff; 
 }
 
-.bar .item-input-wrapper {
+/* .bar .item-input-wrapper {
 	color:#333;
 	height: 25px;
-	/* padding:0 25px 0 25px; */
 	border-radius: 13px;
 	border:none;
-	/* margin-left: 10px; */
+
 	margin-right: 10px;
 }
-
+ */
 .bar .left-input-wrapper {
 	display: block;
 	width: 65px;
@@ -132,9 +161,9 @@ body{
 	border-radius: 13px;
 	border:2px solid #fff;
 }
-#search{
+/* #search{
 	font-size: 1.3em;
-}
+} */
 /* nav */
 .nav_wrap {
 	overflow: hidden;
@@ -175,4 +204,15 @@ body{
     padding-left: 20px !important;
 }
 
+.tabs {
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+
+.tabs-item-hide > .tabs{
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  bottom: -$tabs-height;
+  display: flex;
+}
 
