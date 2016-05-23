@@ -100,7 +100,6 @@ angular.module('City', [])
   };
 
   $scope.click = function (cityname) {    
-    $scope.$emit('to-parent', 'parent');
     Locals.set("city", cityname);
     window.history.back();
   } 

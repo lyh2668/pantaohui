@@ -11,6 +11,7 @@
 
 .dropdown_bk .button {
     margin-top: 5px;
+    padding-right: 5%;
 }
 
 .dropdown_bk .item-radio .item-content {
@@ -47,5 +48,5 @@
 }
 
 .item-input-wrapper {
-  height: 33px;
+  /* height: 33px; */
 }

@@ -1,0 +1,16 @@
+<ion-view view-title="用户信息">
+	<ion-content class="has-header contentBkg">
+
+		<div class="list">
+			<div class="item" ng-repeat="data in datas">
+				<i style="float: left">{{ data.title }}</i>
+				<i style="float: right">{{ data.value }}</i>
+			</div>
+		</div>
+
+		<div class="button button-full button-assertive">
+			退出登录
+		</div>
+	</ion-content>
+</ion-view>
+</html>

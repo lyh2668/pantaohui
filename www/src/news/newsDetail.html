@@ -5,9 +5,9 @@
 
 </head>
 
-<ion-view hide-tabs="true" view-title="资讯详情">
+<ion-view view-title="资讯详情">
 	<ion-nav-buttons side="right">
-    <button class="button button-icon ion-android-share-alt button-positive"  style="background: transparent" ng-click="share()"></button>
+    <button class="button button-icon ion-android-share-alt button-positive"  style="background: transparent" ng-click="share()" ng-show="hasWechat()"></button>
   </ion-nav-buttons>
 	<ion-content class="padding">
 

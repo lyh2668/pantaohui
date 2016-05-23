@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<link type="text/css" rel="stylesheet" href="src/meet/meetDetail.css">
+	<!-- <script type="text/ng-template" ng-include="'src/meet/meetApply.html'"></script> -->
 </head>
 
-<ion-view hide-tabs="true" view-title="会议详情">
+<ion-view view-title="会议详情">
+	<ion-nav-buttons side="right">
+    <button class="button button-icon ion-android-share-alt button-positive"  style="background: transparent" ng-click="share()" ng-show="hasWechat()"></button>
+  </ion-nav-buttons>
 	<ion-content class="padding" delegate-handle="mainScroll" on-drag-up="disableSideButton()" on-drag-down="enableSideButton()">
 
 		<div class="detail_title">
@@ -33,5 +35,44 @@
 		</div>
 
 	</ion-content>
-	<div id="side_animate" class="side_button" ng-show="showSideButton"></div>
+	<div id="side_animate" class="side_button" ng-show="showSideButton" ng-click="openModal()"></div>
 </ion-view>
+
+<script id="meetApply.html" type="text/ng-template">
+	<div class="modal modalBkg">
+
+		<!-- Modal header bar -->	
+		<ion-header-bar class="bar-secondary">
+			<h1 class="title">报名</h1>
+			<button class="button button-clear button-positive" ng-click="closeNewProject()">取消</button>
+		</ion-header-bar>
+
+		<!-- Modal content area -->	
+		<ion-content>
+
+			<form ng-submit="newProject(project)">
+				<div class="list">
+					<label class="item item-input">
+						<input type="text" placeholder="姓名">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="手机">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="邮箱">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="单位">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="职位">
+					</label>
+				</div>
+				<div class="padding commitButton">
+					<button type="submit" class="button button-block button-positive">确定报名</button>
+				</div>
+			</form>
+
+		</ion-content>
+	</div>	
+</script>

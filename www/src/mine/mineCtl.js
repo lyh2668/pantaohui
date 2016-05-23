@@ -1,37 +1,34 @@
 angular.module('Mine', [])
 
-.controller('MineCtl', function($scope, $ionicPopup, $state, webRequest) {
-	$scope.jsonData = "Access_token"
-	$scope.wechatLogin = function() {
-		// webRequest.getWechatUserInfo("0015f5Ov0HUQln1KIwPv0V68Ov05f5OT").then( function(data) {
-		// 		$scope.jsonData = data;
-		// 	}, function(data) {
-		// 		$scope.jsonData = data;
-		// 	}	
-		Wechat.auth("snsapi_userinfo", function (response) {
-	
-				$ionicPopup.alert({
-					title: '授权登录',
-					template: '授权登录成功：' + JSON.stringify(response),
-					okText: '确定'
-				});
+.controller('MineCtl', function($scope, $ionicPopup, $state, Locals, AuthService) {
+	$scope.data = {
+		thumb: "src/mine/images/未登录.png",
+		nickname: "",
+		city: ""
+	}
 
-			webRequest.getWechatUserInfo(response.code).then( function(data) {
-				$scope.jsonData = data;
-			}, function(data) {
-				$scope.jsonData = data;
-			})
+	console.log(AuthService.isLogin())
 
-		}, function (reason) {
-			$ionicPopup.alert({
-				title: '授权登录',
-				template: '授权登录失败：' + JSON.stringify(reason),
-				okText: '确定'
-			});
-		})
+	$scope.isLogin = function() {
+		if (AuthService.isLogin()) {
+			$scope.getUserInfo()
+		}
+		return AuthService.isLogin()
+	}
+
+	$scope.getUserInfo = function() {
+		var userInfo = AuthService.getUserInfo()
+		for (var value in userInfo) {
+			$scope.data.nickname = userInfo.nickname;
+			$scope.data.thumb = userInfo.headimgurl;
+		}
 	}
 
 	$scope.toLoginView = function() {
-		$state.go('tabs.login', {})
+		if (AuthService.isLogin()) {
+			$state.go('tabs.userInfo', {})
+		} else {
+			$state.go('tabs.login', {})
+		}
 	}
 })

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link type="text/css" rel="stylesheet" href="src/mine/mine.css">
+	
 </head>
 
 <ion-view view-title="我的">
@@ -15,12 +15,17 @@
 	<ion-content class="has-header contentBkg">
 
 		<div class="userHeaderBkg" ng-click="toLoginView()">
-			<a class="headerThumb" href="#/tab/mine/login">
-			</a>
+			<div class="headerThumb">
+				<img ng-src="{{ data.thumb }}">
+			</div>
 			<!-- <i class="headerThumb" ng-click="wechatLogin()"></i> -->
-			<div class="descrp">
+			<div class="descrp" ng-show="!isLogin()">
 				<div class="login">点击登录</div>
 				<div class="sub">让办会更简单</div>
+			</div>
+			<div class="descrp" ng-show="isLogin()">
+				<div class="login">{{ data.nickname }}</div>
+				<div class="sub"></div>
 			</div>
 		</div>
 

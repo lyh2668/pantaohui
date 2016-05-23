@@ -107,24 +107,4 @@ angular.module('Meet', [])
   });
 })
 
-.controller('MeetDetailCtl', function ($scope, readJsonService, JSON_LOCAL_FILES, $sce, $ionicScrollDelegate) {
-	$scope.showSideButton = true;
 
-	$scope.disableSideButton = function() {
-		$scope.showSideButton = false;
-	}
-
-	$scope.enableSideButton = function() {
-		$scope.showSideButton = true;
-	}
-
-	$scope.getScrollPosition = function () {
-		var scroll = $ionicScrollDelegate.$getByHandle('mainScroll').getScrollPosition();
-		console.log(scroll);
-	}
-	readJsonService.getLocalJsonData(JSON_LOCAL_FILES.PT_MEET_DETAIL).then( function(data) {
-		$scope.jsonData = data;
-	}, function(data) {
-		$scope.jsonData = data;
-	})
-})

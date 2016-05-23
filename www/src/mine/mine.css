@@ -25,10 +25,15 @@
 	width: 64px;
 	height: 64px;
 	border-radius: 40px;
-	background: url('images/未登录.png');
+	/* background: url('images/未登录.png'); */
 	background-repeat: repeat;
 	background-size: 100% 100%;
 	float:left;
+}
+
+.headerThumb img {
+	max-width: 64px;
+	max-height: 64px;
 }
 
 .item .icon-color {

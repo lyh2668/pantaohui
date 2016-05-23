@@ -1,14 +1,19 @@
 angular.module('Routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
+	
 	$stateProvider
 		.state("tabs", {
 			url: "/tab",
 			abstract: true,
 			templateUrl: "templates/tabs.html",
 			resolve: {
-				loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-        	return $ocLazyLoad.load('js/jsonService.js')
+				// loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+    //     	return $ocLazyLoad.load('js/jsonService.js')
+    //   	}]
+    //   	,
+      	loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+        	return $ocLazyLoad.load('src/login/loginService.js')
       	}]
      	}
 		})
@@ -18,7 +23,8 @@ angular.module('Routes', [])
 			views: {
 				"home-tab": {
 					templateUrl: "src/home/home.html",
-					controller: "HomeCtl"
+					controller: "HomeCtl",
+					css: "src/home/home.css"
 				}
 			},
 			resolve: {
@@ -33,12 +39,13 @@ angular.module('Routes', [])
 			views: {
 				"home-tab": {
 					templateUrl: "src/meet/meetDetail.html",
-					controller: "MeetDetailCtl"
+					controller: "MeetDetailCtl",
+					css: "src/meet/meetDetail.css"
 				}
 			},
 			resolve: {
       	loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-        	return $ocLazyLoad.load('src/meet/meetCtl.js')
+        	return $ocLazyLoad.load('src/meet/meetDetailCtl.js')
       	}]
     	}
 		})
@@ -61,27 +68,27 @@ angular.module('Routes', [])
 
 		.state("tabs.meet-detail", {
 			url: "/meet/detail/:id",
-			cache:false,
 			views: {
 				"meet-tab": {
 					templateUrl: "src/meet/meetDetail.html",
 					controller: "MeetDetailCtl",
-					// css: "src/meet/meetDetail.css"
+					css: "src/meet/meetDetail.css"
 				}
 			},
 			resolve: {
       	loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-        	return $ocLazyLoad.load('src/meet/meetCtl.js')
+        	return $ocLazyLoad.load('src/meet/meetDetailCtl.js')
       	}]
     	}
 		})
 
 		.state("tabs.meet-citylist", {
-			url: "meet/citylist",
+			url: "/meet/citylist",
 			views: {
 				"meet-tab": {
 					templateUrl: "src/city/city.html",
-					controller: "CityCtl"
+					controller: "CityCtl",
+					css: "src/city/city.css"
 				}
 			},
 			resolve: {
@@ -92,11 +99,12 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.meet-screen", {
-			url: "meet/screen",
+			url: "/meet/screen",
 			views: {
 				"meet-tab": {
 					templateUrl: "src/screen/screen.html",
-					controller: "ScreenCtl"
+					controller: "ScreenCtl",
+					css: "src/screen/screen.css"
 				}
 			},
 			resolve: {
@@ -127,7 +135,8 @@ angular.module('Routes', [])
 			views: {
 				"news-tab": {
 					templateUrl: "src/news/newsDetail.html",
-					controller: "NewsDetailCtl"
+					controller: "NewsDetailCtl",
+					css: "src/news.css"
 				}
 			},
 			resolve: {
@@ -142,7 +151,8 @@ angular.module('Routes', [])
 			views: {
 				"mine-tab": {
 					templateUrl: "src/mine/mine.html",
-					controller: "MineCtl"
+					controller: "MineCtl",
+					css: ["src/mine/mine.css", "src/login/login.css"]
 				}
 			},
 			resolve: {
@@ -157,7 +167,8 @@ angular.module('Routes', [])
 			views: {
 				"mine-tab": {
 					templateUrl: "src/login/login.html",
-					controller: "LoginCtl"
+					controller: "LoginCtl",
+					css: "src/login/login.css"
 				}
 			},
 			resolve: {
@@ -165,6 +176,22 @@ angular.module('Routes', [])
         	return $ocLazyLoad.load('src/login/loginCtl.js')
       	}]
     	}
+		})
+
+		.state("tabs.userInfo", {
+			url: "/mine/userInfo",
+			views: {
+				"mine-tab": {
+					templateUrl: "src/mine/userInfo.html",
+					controller: "UserInfoCtl",
+					css: "src/mine/userInfo.css"
+				}
+			},
+			resolve: {
+				loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load('src/mine/userInfoCtl.js')
+				}]
+			}
 		})
 
 		$urlRouterProvider.otherwise("/tab/home")

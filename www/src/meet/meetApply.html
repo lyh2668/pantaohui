@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="src/meet/meetApply.css" rel="stylesheet">
+</head>
+
+<div class="modal" style="margin: 10px">
+
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary">
+    <h1 class="title">New Project</h1>
+    <button class="button button-clear button-positive" ng-click="closeNewProject()">Cancel</button>
+  </ion-header-bar>
+
+  <!-- Modal content area -->
+  <ion-content>
+
+    <form ng-submit="newProject(project)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Project Name" ng-model="project.title"></label>
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-positive">Create Project</button>
+      </div>
+    </form>
+
+  </ion-content>
+</div>

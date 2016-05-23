@@ -69,4 +69,28 @@
     opacity:0;
 } */
 
+.modalBkg {
+    display: block;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    min-height: 80%;
+    top: 10%;
+    bottom: 10%;
+}
 
+.modalBkg .commitButton {
+
+}
+
+@media (max-width: 679px) {
+  .active .modal-backdrop-bg {
+    opacity: .5;
+  }
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+  }
+}
