@@ -1,49 +1,45 @@
 angular.module('City', [])
 
-.controller('CityCtl', function($scope, $ionicScrollDelegate, filterFilter, $location, $anchorScroll, Locals) {
-  var letters = $scope.letters = [];
-  var contacts = $scope.contacts = [];
-  var currentCharCode = ' '.charCodeAt(0) - 1;
+.controller('CityCtl', function($scope, $ionicScrollDelegate, $ionicHistory, filterFilter, $location, 
+  $anchorScroll, Locals, $state, cityService, $stateParams) {
+  var letters = $scope.letters = cityService.letters;
+  var contacts = $scope.contacts = cityService.contacts;
 
-  //window.CONTACTS is defined below
-  window.CONTACTS
-    .sort(function(a, b) {
-      return a.label > b.label ? 1 : -1;
-    })
-    .forEach(function(city) {
-      //put the letter in the array
-      var cityCharCode = city.label.toUpperCase().charCodeAt(0);
-      
-      if (cityCharCode < 65) {
-         cityCharCode = 35; 
-      }
-   
-      //We may jump two letters, be sure to put both in
-      //(eg if we jump from Adam Bradley to Bob Doe, add both C and D)
-      var difference = cityCharCode - currentCharCode;
 
-      for (var i = 1; i <= difference; i++) {
-        // console.log(String.fromCharCode(currentCharCode));
-        addLetter(currentCharCode + i);
-      }
-      currentCharCode = cityCharCode;
-      contacts.push(city);
-    });
+  $scope.locationCity = null;
+  cityService.getLocation().then(function(data) {
+    $scope.locationCity = {
+      no: data.adcode,
+      id: -1,
+      title: data.city
+    };
+  });
+  
 
-  //If names ended before Z, add everything up to Z
-  for (var i = currentCharCode + 1; i <= 'Z'.charCodeAt(0); i++) {
-    addLetter(i);
+  if ($stateParams.posCity) {
+
+    $scope.posCity = {
+      title: $stateParams.posCity.city,
+      no: $stateParams.posCity.adcode,
+      id: -1
+    }
   }
+  
 
-  function addLetter(code) {
-    var letter = String.fromCharCode(code);
+  cityService.getHotCityList().then( function(data) {
+    $scope.hotCityList = data;
 
-    contacts.push({
-      isLetter: true,
-      letter: letter
-    });
-   
-    letters.push(letter);
+    var tmpCity = {
+      title: "全国",
+      no: "",
+      id: 0
+    }
+
+    $scope.hotCityList.unshift(tmpCity);
+  })
+
+  if(!letters.length || !contacts.length) {
+    cityService.sortCityList();
   }
 
   //Letters are shorter, everything else is 52 pixels
@@ -51,8 +47,14 @@ angular.module('City', [])
     return item.isLetter ? 30 : 40;
   };
 
-  $scope.scrollTop = function() {
+  $scope.hideOthers = false;
+  $scope.citySearchChange = function() {
     $ionicScrollDelegate.scrollTop();
+    if ($scope.search.length > 0) {
+      $scope.hideOthers = true;
+    } else {
+      $scope.hideOthers = false;
+    }
   };
   
   $scope.scrollBottom = function() {
@@ -67,17 +69,17 @@ angular.module('City', [])
     //is one or more matching contact
     return contacts.filter(function(item) {
       var itemDoesMatch = !$scope.search || item.isLetter ||
-        item.label.toLowerCase().indexOf($scope.search.toLowerCase()) > -1 ||
-        item.cityname.indexOf($scope.search) > -1 || 
-        item.abbr.toLowerCase().indexOf($scope.search.toLowerCase()) > -1;
+        item.pinyin.toLowerCase().indexOf($scope.search.toLowerCase()) > -1 ||
+        item.title.indexOf($scope.search) > -1 || 
+        item.py.toLowerCase().indexOf($scope.search.toLowerCase()) > -1;
 
       //console.log(item.last_name.toString().charAt(0));
       
       //Mark this person's last name letter as 'has a match'
       if (!item.isLetter && itemDoesMatch) {
 
-        var letter = item.label.charAt(0).toUpperCase();
-        if ( item.label.charCodeAt(0) < 65 ) {
+        var letter = item.pinyin.charAt(0).toUpperCase();
+        if ( item.pinyin.charCodeAt(0) < 65 ) {
           letter = "#";
         }
         letterHasMatch[letter] = true;
@@ -97,11 +99,18 @@ angular.module('City', [])
 
   $scope.clearSearch = function() {
     $scope.search = '';
+    $scope.hideOthers = false;
   };
 
-  $scope.click = function (cityname) {    
-    Locals.set("city", cityname);
-    window.history.back();
+  $scope.click = function (cityObj) {
+    var cityTmp = {
+      cityid: cityObj.no,
+      id: cityObj.id,
+      title: cityObj.title
+    }
+    Locals.setObject("cityObj", cityTmp);
+    // $ionicViewSwitcher.nextDirection("back");
+    $ionicHistory.goBack();
   } 
 });
 

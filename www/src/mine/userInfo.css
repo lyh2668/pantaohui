@@ -1,0 +1,11 @@
+.contentBkg .thumb_title {
+	float: left;
+	line-height: 76px;
+}
+
+.contentBkg .thumb > img {
+	border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  float: right;
+}

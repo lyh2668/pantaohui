@@ -1,0 +1,52 @@
+.my-item.item {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.search-bar {
+	border-bottom: 1px solid #eee;
+}
+
+.full-width {
+  width: 90%;
+  margin-left: 3%;
+  color:#333;
+
+  border:none;
+  border-radius: 5px;
+  background: transparent;
+
+  /* text-indent: 10px; */
+
+}
+
+.meet-search-wrapper {
+	margin-right: 5px;
+}
+
+.searchBtn {
+	border: none;
+	background: transparent;
+	color: #f24182;
+	width: 50px;
+}
+
+.searchBtn p {
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.searchBtn:active > p {
+	opacity: 0.5;
+}
+
+.highlightedText {
+	color: #f24182;
+	font-weight: 500;
+}
+
+.meetList p {
+  padding-right: 46px;
+  overflow: hidden;
+  white-space: nowrap;
+}

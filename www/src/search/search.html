@@ -1,0 +1,63 @@
+<html>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <ion-view hide-tabs="true" hide-nav-bar="true">
+
+    <ion-header-bar class="bar-light search-bar">
+      <label class="item-input-wrapper meet-search-wrapper">
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="search"
+               placeholder="搜索会议"
+               ng-model="searchKey"
+               ng-focus="focusSearch()"
+               ng-blur="blurSearch()"
+               ng-change="searchChange()"
+               class="full-width">
+        <a ng-if="searchKey.length"
+           on-touch="clearSearch()"
+           class="clear-search">
+          <i class="icon ion-ios-close placeholder-icon"></i>
+        </a>
+      </label>
+      <button class="searchBtn" ng-click="meetSearch()">
+        <p>搜索</p>
+      </button>
+
+    </ion-header-bar>
+    <ion-content>
+      <div ng-if="!searchKey.length">
+        <div class="list meetList">
+          <a class="item item-divider">
+            <p>热门搜索</p>
+          </a>
+          <a class="item item-text-wrap" ng-repeat="item in hotSearch" ng-click=clickHotItem(item)>
+            <p>{{ item.title }}</p>
+          </a>
+        </div>
+      </div>
+      <div class="list meetList" ng-if="searchKey.length && searchComplete">
+        <a class="item item-text-wrap" ng-click="toMeetDetail(data)" ng-repeat="data in jsonDatas">
+          <h2 ng-bind-html="data.title | highlight:searchKey">
+          </h2>
+          <p class="ion-ios-clock-outline">
+            {{ data.start_time }}
+          </p>
+          <p class="ion-ios-location-outline">
+            {{ data.site }}
+          </p>
+          <!-- <div class="free-hot">
+            <i class="free" ng-show="data.isfree">免</i>
+          </div> -->
+        </a>
+      </div>
+  
+      <ion-infinite-scroll ng-if="more"
+                           icon="ion-loading-c"
+                           on-infinite="loadMoreData()"
+                           distance="10%">
+      </ion-infinite-scroll>
+    </ion-content>
+
+	</ion-view>
+</html>

@@ -1,10 +1,24 @@
 angular.module('starter')
 
-.controller('StartCtl', function($scope, $state, $window, $location, WeixinService, WxConstant) {
-
-
+.controller('StartCtl', function($scope, $state, $window, $location, WeixinService, WxConstant,
+ webRequest, Locals) {
 
 	WeixinService.config();
+
+	function getAppid() {
+		if(!Locals.get('pantaohui_appid')) {
+			webRequest.getAppid().then( function(data) {
+				console.log('new appid: ', data.appid);
+				Locals.set('pantaohui_appid', data.appid);
+			}, function(err) {
+				// 
+			})
+		} else {
+			console.log('cur appid:', Locals.get('pantaohui_appid'));
+		}
+	}
+
+	getAppid();
 	
 })
 

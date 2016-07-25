@@ -1,18 +1,84 @@
-.detail_title {
-	background-color: #fff;
-	padding: 15px 10px 5px;
-	overflow: hidden;
+
+.meetDetail_content .detail_title_h1 {
+    font-size: 1.4em;
+    color: #000;
+    line-height: 1.4em;
 }
 
-.detail_title_h1 {
-    font-size: 18px;
+.meetDetail_content {
+    background: #eee;
+}
+
+.meetDetail_content .detail_title {
+    background: white;
+    background-color: #fff;
+
+    padding: 15px 10px 5px;
+    margin: 0 -10px;
+    /* font-size: 1.4em; */
     color: #000;
-    line-height: 25px;
-    word-break: break-all;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
+    /* line-height: 1.4em; */
+}
+
+.meetDetail_content .htmlContent {
+    background: white;
+    padding: 10px 10px;
+    margin: 0 -10px;
+    margin-top: 10px;
+}
+
+.meetDetail_content .card i {
+    font-size: .85em;
+    padding-left: 20px;
+}
+
+.meet_detail_clock_icon {
+    background: url(images/time.png) 0 no-repeat;
+    background-size: 1em;
+}
+
+.meet_detail_pos_icon {
+    background: url(images/city.png) 0 no-repeat;
+    background-size: 1em;
+}
+
+.meetDetail_content .relateMeetTitle {
+    background: white;
+}
+
+.meetDetail_content .detail_subTitle {
+    background: white;
+    background-color: #fff;
+    padding: 0px 10px;
+    margin-left: -10px;
+    margin-right: -10px;
     overflow: hidden;
-    max-height: 50px;
+    font-size: 0.875em;
+    text-decoration: none;
+}
+
+.meetDetail_content .head_image {
+    margin-left: -10px;
+    margin-right: -10px;
+    background: white;
+}
+
+.meetDetail_content .head_image > img {
+    padding-top: 10px;
+    width: 100%;
+}
+
+.meetDetail_content .card {
+    margin: 0px -10px;
+    font-size: 0.875em;
+    /* box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); */
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.meetDetail_content .card .item:first-child {
+    border-top: 0px;
 }
 
 .detail_subTitle {
@@ -27,7 +93,7 @@
     bottom: 35px;
     right: 30px;
     z-index: 100;
-    background: url("images/apply_button.png") #e7608b center no-repeat;
+    background: url("images/apply_button.png") #f24182 center no-repeat;
     background-size: 75% 75%;
     display: block;
     border-radius: 50%;
@@ -69,7 +135,7 @@
     opacity:0;
 } */
 
-.modalBkg {
+/* .modalBkg {
     display: block;
     width: 80%;
     left: 10%;
@@ -77,10 +143,28 @@
     min-height: 80%;
     top: 10%;
     bottom: 10%;
+    border-radius: 5px;
+} */
+
+.modalBkg .bar-secondary {
+    border-bottom: 1px solid #f2f2f2;
 }
 
-.modalBkg .commitButton {
+.modalBkg .title {
+    color: #666;
+}
 
+.modalBkg .cancelBtn {
+    color: #f24182;
+}
+
+.modalBkg .commitButton input {
+  background: #f24182;
+  color: white;
+}
+
+.modalBkg .list .item:first-child {
+    border-top: 0px;
 }
 
 @media (max-width: 679px) {
@@ -94,3 +178,342 @@
     opacity: 0;
   }
 }
+
+.htmlContent {
+    text-decoration: none !important;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    /* font-size: 1em; */
+}
+
+.card .item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.htmlContent span,
+.htmlContent p {
+    line-height: 150%;
+}
+
+.htmlContent img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.htmlContent table {
+
+    display: table;
+    width: 100% !important;
+    height: auto !important;
+    table-layout:fixed;
+}
+
+.htmlContent tr {
+    height: auto !important;
+}
+
+.htmlContent table td {
+    width: 0px !important;
+    word-wrap:break-word;
+}
+
+.htmlContent p {
+    /* width: 100% !important; */
+    margin-left: 0px !important;
+}
+
+.htmlContent td {
+    /* width: auto !important; */
+    /* display: block; */
+}
+
+.bottomBar {
+    position: absolute;
+    height: 44px;
+    width: 100%;
+    bottom: 0;
+    border-top: 1px solid #f2f2f2;
+}
+
+.bottomBar > div {
+    position: absolute;
+    display: block;
+    width: 50%;
+    text-align: center;
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    color: white;
+
+}
+
+.bottomBar .applyBtn {
+    left: 0;
+    opacity: 1;
+    background: white;
+    color: #f24182;
+    border: 2px solid #f24182;
+    border-right: 1px solid #f24182;
+}
+
+.bottomBar .applyDisable {
+    background: #ccc;
+}
+
+.bottomBar .applyBtn:active {
+    opacity: 0.7;
+}
+
+.bottomBar .favBtn {
+    left: 50%;
+    opacity: 1;
+    border: 2px solid #f24182;
+    color: #f24182;
+}
+
+.bottomBar .favBtn:active {
+    opacity: 0.7;
+}
+
+.bottomBar .favedBtn {
+    background: #f24182;
+    color: white;
+}
+
+.relateMeetTitle_wrap {
+    padding-top: 10px;
+    background: white;
+    margin: 0 -10px;
+    margin-top: 10px;
+}
+
+.relateMeetTitle {
+    border-left: 5px solid #f24182;
+    text-indent: 10px;
+}
+
+.relateMeetList {
+    margin: 0 -10px;
+}
+
+.relateMeetList .item:first-child {
+    border-top: 0px;
+}
+
+.relateMeetList > .item > h3 {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.relateMeetList > .item > p {
+    font-size: 11px;
+    height: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.relateMeetList > .item > img {
+    max-height: 55px;
+    border: 1px solid #f2f2f2;
+}
+
+.relateMeetList > .item {
+    min-height: 75px;
+}
+
+.meetDetail_content {
+    margin-bottom: 44px;
+}
+
+.bottomBar .pantaohui_logo {
+    float: left;
+    width: 33%;
+    background: url("images/pantaohui.png") center no-repeat;
+    background-size: 80%;
+}
+
+.bottomBar .pantaohui_apply  {
+    float: right;
+    width: 67%;
+    left: 33%;
+    background: #f24182;
+    color: white;
+    font-weight: 600;
+}
+
+#bind_code {
+    /* width:50%; */
+}
+
+.button_code {
+    display: block;
+    margin-top: 10px;
+}
+
+.applyForm .formRequired {
+    color: red;
+    margin-left: -9px;
+    margin-right: 3px;
+}
+
+.clearfix:after{content:"";display: block;clear:both;height: 0;overflow: hidden;visibility: hidden;}
+.clearfix{zoom:1;}
+.bind-dialog{
+        width: 100%;
+        /* margin-top: -180px; */
+        background-color: #f6f6f6;
+        border-radius: 10px;
+    }
+    .bind-dialog-box{
+        
+    }
+    .bind-dialog-box p{
+        text-align: center;
+        font-size: 1.2em;
+        line-height: 40px;
+        color: #F24182;
+        /* padding-bottom: 15px; */
+    }
+    .bind-dialog-box .phone-box{
+        margin-top: 30px;
+        width: 100%;
+    }
+    .bind-dialog-box .phone-box input{
+        float: left;
+        width: 100%;
+        height: 32px;
+        line-height: 32px;
+        color: #555;
+        font-size: .875em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-indent: 0px;
+        padding-left: 35px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    .bind-dialog-box .phone input{
+        background:#fff url(images/icon2.png) 1px -40px no-repeat;
+    }
+    .bind-dialog-box .phone-box .ma{
+        width: 60%;
+        background:#fff url(images/icon2.png) -3px -5px no-repeat;
+    }
+
+    .bind-dialog-box .phone-box .ma-btn{
+        float: right;
+        width: 35%;
+        font-size: .66em;
+        text-align: center;
+        padding-left: 0px;
+        color:#fff;
+        background-color: #F24182;
+        cursor: pointer;
+        border:none;
+        text-indent:0;
+    }
+    .bind-dialog-box .submit input{
+        margin-top: 25px;
+        text-align: center;
+        width: 45%;
+        font-size: .9em;
+        padding: 10px 0;
+        border:none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .bind-dialog-box .confirm{
+        background-color: #F24182;
+        margin-right: 9%;
+        float: left;
+    }
+
+    .bind-dialog-box .confirm:active {
+        background-color: #f25192;
+        margin-right: 9%;
+        float: left;
+    }
+
+    .bind-dialog-box .cancel {
+        float: right;
+    }
+
+    .bind-dialog-box .cancel:active {
+        float: right;
+        background-color: #ccc;
+    }
+
+.login-dialog {
+        width: 100%;
+        background-color: #f6f6f6;
+        border-radius: 10px;
+    }
+    .login-dialog-box {
+        text-align: center;
+        font-size: 1.2em;
+        line-height: 40px;
+        color: #F24182;
+    }
+    .login-dialog-box .username-box input,
+    .login-dialog-box .password-box input {
+        float: left;
+        width: 100%;
+        height: 32px;
+        line-height: 32px;
+        color: #555;
+        font-size: .875em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-indent: 0px;
+        padding-left: 35px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    .login-dialog-box .username-box input{
+        background:#fff url(images/meet_login.png) -6px -51px no-repeat;
+    }
+    .login-dialog-box .password-box input{
+        background:#fff url(images/meet_login.png) -3px -5px no-repeat;
+    }
+    .login-dialog-box .submit input{
+        margin-top: 25px;
+        text-align: center;
+        width: 45%;
+        font-size: .9em;
+        padding: 10px 0;
+        border:none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .login-dialog-box .confirm{
+        background-color: #F24182;
+        margin-right: 9%;
+        float: left;
+    }
+
+    .login-dialog-box .confirm:active {
+        background-color: #f25192;
+        margin-right: 9%;
+        float: left;
+    }
+
+    .login-dialog-box .cancel {
+        float: right;
+        background-color: #ddd;
+    }
+
+    .login-dialog-box .cancel:active {
+        float: right;
+        background-color: #ccc;
+    }

@@ -27,8 +27,10 @@ angular.module('starter', ['ionic', 'Routes', 'oc.lazyLoad', 'ngCordova', 'angul
   });
 })
 
-.config(['$ionicConfigProvider', function($ionicConfigProvider) {
+.config(['$ionicConfigProvider', '$httpProvider', function($ionicConfigProvider, $httpProvider) {
   $ionicConfigProvider.tabs.position('bottom');
+
+  // $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
 }])
 
 .filter("trustHtml",function($sce) {
@@ -36,5 +38,35 @@ angular.module('starter', ['ionic', 'Routes', 'oc.lazyLoad', 'ngCordova', 'angul
     return $sce.trustAsHtml(input); 
   }
 })
+
+.filter("trim", function() {
+  return function(str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+  }
+})
+
+.filter("highlight", function($sce, $log){
+
+    var fn = function(text, search){
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        var regex = new RegExp(search, 'gi')
+        var result = text.replace(regex, '<span class="highlightedText">$&</span>');
+        return $sce.trustAsHtml(result);
+    };
+
+    return fn;
+})
+
+   .directive('customScrollHeight',function($window) {
+      return{
+        restrict:'AE',
+        link:function(scope,element,attr){
+          console.log("customScrollHeight", $window.innerHeight-44-49);
+          element[0].style.height=($window.innerHeight-44-49)+'px';
+        }
+      }
+    })
 
 // });

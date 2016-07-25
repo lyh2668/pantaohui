@@ -1,0 +1,100 @@
+[{
+	"id": "1",
+	"name": "kjwl",
+	"title": "科技网络",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "2",
+	"name": "cjjr",
+	"title": "财经金融",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "3",
+	"name": "gyzz",
+	"title": "工业制造",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "4",
+	"name": "nlmy",
+	"title": "农林牧渔",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "5",
+	"name": "fwhy",
+	"title": "服务行业",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "6",
+	"name": "jkyl",
+	"title": "健康医疗",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "7",
+	"name": "jypx",
+	"title": "教育培训",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "8",
+	"name": "xsyt",
+	"title": "学术研讨",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "9",
+	"name": "sqhd",
+	"title": "社群活动",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+},
+{
+	"id": "10",
+	"name": "qt",
+	"title": "其他",
+	"pid": "0",
+	"thumb": "",
+	"count": "0",
+	"sort": "0",
+	"remark": ""
+}]

@@ -1,78 +1,176 @@
 <!DOCTYPE html>
+
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <meta http-equiv="refresh" content="20"> -->
 	<!-- <script type="text/ng-template" ng-include="'src/meet/meetApply.html'"></script> -->
 </head>
 
-<ion-view view-title="会议详情">
-	<ion-nav-buttons side="right">
-    <button class="button button-icon ion-android-share-alt button-positive"  style="background: transparent" ng-click="share()" ng-show="hasWechat()"></button>
-  </ion-nav-buttons>
-	<ion-content class="padding" delegate-handle="mainScroll" on-drag-up="disableSideButton()" on-drag-down="enableSideButton()">
+<ion-view hide-nav-bar="true">
+	
+	
+
+	<ion-content class="padding meetDetail_content" delegate-handle="mainScroll" on-drag-up="disableSideButton()" on-drag-down="enableSideButton()" zooming=ture ng-show="loaded">
 
 		<div class="detail_title">
-			<h1 class="detail_title_h1">{{ jsonData.title }}</h1>
+			<h1 class="detail_title_h1">{{ meetDetailData.title }}</h1>
 		</div>
 
 		<div class="detail_subTitle">
-			<i style="float:left">发布：{{ jsonData.create_time }}</i>
-			<i style="float:right">阅读：{{ jsonData.hits }} </i>
+			<i style="float:left">发布：{{ meetDetailData.create_time }}</i>
+			<i style="float:right">阅读：{{ meetDetailData.hits }} </i>
+		</div>
+	
+		<div class="head_image">
+			<img ng-src="{{ meetDetailData.thumb }}"/>
+		</div>	
+		<div class="card">
+			<div class="item item-text-wrap">
+				<!-- <i class="icon ion-clock" style="font-size: 14px"></i><p>{{ meetDetailData.start_time }} 至 {{ meetDetailData.end_time }}</p> -->
+				<i class="meet_detail_clock_icon">
+					{{ meetDetailData.start_time }} 至 {{ meetDetailData.end_time }}
+				</i>
+			</div>
+			<div class="item item-text-wrap">
+			
+				<i class="meet_detail_pos_icon">
+					{{ meetDetailData.site }}
+				</i>
+			</div>
+			<!-- <div class="item item-text-wrap item-icon-left">
+				<i class="icon ion-android-contact" style="font-size: 15px"></i><p>已经有{{ meetDetailData.count }}人报名</p>
+			</div> -->
+
 		</div>
 
-		<div class="card" style="margin-top: 30px;">
-			<div class="item item-text-wrap item-icon-left">
-				<i class="icon ion-clock" style="font-size: 14px">{{ jsonData.start_time }}  {{ jsonData.end_time }}</i>
-			</div>
-			<div class="item item-text-wrap item-icon-left">
-				<i class="icon ion-ios-location-outline" style="font-size: 15px">北京中国国际展览中心</i>
-			</div>
-			<div class="item item-text-wrap item-icon-left">
-				<i class="icon ion-android-contact" style="font-size: 15px">已经有0人报名</i>
-			</div>
+		<div>
+			<pre ng-bind-html="meetDetailData.MeetData.content | trustHtml" class="htmlContent" id="meetDetailContent"></pre>
 		</div>
 
-		<div class="">
-			<pre data-ng-bind-html="jsonData.content | trustHtml"></pre>
+		<div class="relateMeetTitle_wrap">
+			<div class="relateMeetTitle" ng-if="meetDetailData.relate_meet">相关会议</div>
+		</div>
+		<div class="list relateMeetList" ng-if="meetDetailData.relate_meet">
+			<a class="item item-thumbnail-right item-text-wrap" href="#/tab/meet/detail/{{data.id}}" ng-repeat="data in meetDetailData.relate_meet">
+				<img ng-src="{{ data.thumb }}"/>			
+				<h3>{{ data.title }}</h3>
+				<p class="ion-ios-clock-outline">
+    			{{ data.start_time }}
+    		</p>
+    		<p class="ion-ios-location-outline">
+    			{{ data.site }}
+    		</p>
+    	</a>
 		</div>
 
+<!-- 
+		<iframe src="src/meet/changyan.html" id="iframepage" name="iframepage" frameBorder=0 scrolling=no width="100%" onLoad="reinitIframeEND();" style="">
+			
+		</iframe> -->
+		
+
+		<!-- <div class="padding">这已经是底部了</div> -->
+		<div class="bottom_wrap">
+			<span>蟠桃会－免费会议策划与营销专家</span>
+			<a href="tel:0580-2299260">官方咨询</a>
+		</div>
+
+	
 	</ion-content>
-	<div id="side_animate" class="side_button" ng-show="showSideButton" ng-click="openModal()"></div>
+	<!-- <div id="side_animate" class="side_button" ng-show="showSideButton" ng-click="openModal()"></div> -->
+	<div class="bottomBar">
+		<!-- <div class="applyBtn" ng-click="openModal()">报名</div>
+		<div class="favBtn" ng-click="clickFavor()" ng-hide="isFavored()">收藏</div>
+		<div class="favBtn favedBtn" ng-click="clickFavor()" ng-show="isFavored()">已收藏</div> -->
+		<div class="pantaohui_logo" ng-click="backHome()"></div>
+		<div class="pantaohui_apply" ng-click="openModal()">马上报名</div>
+	</div>
+
 </ion-view>
 
 <script id="meetApply.html" type="text/ng-template">
 	<div class="modal modalBkg">
 
 		<!-- Modal header bar -->	
-		<ion-header-bar class="bar-secondary">
+		<ion-header-bar class="bar-secondary" style="background: white">
 			<h1 class="title">报名</h1>
-			<button class="button button-clear button-positive" ng-click="closeNewProject()">取消</button>
+			<button class="button button-clear cancelBtn" ng-click="closeApply()">取消</button>
 		</ion-header-bar>
 
 		<!-- Modal content area -->	
 		<ion-content>
 
-			<form ng-submit="newProject(project)">
+			<form novalidate name="applyForm" class="applyForm">
 				<div class="list">
 					<label class="item item-input">
-						<input type="text" placeholder="姓名">
+						<i class="formRequired">*</i>
+						<input type="text" name="user" placeholder="姓名" ng-model="applyData.username" required>
+					</label>
+					
+					<label class="item item-input">
+						<i class="formRequired">*</i>
+						<input type="number" placeholder="手机" ng-model="applyData.mobile" required ng-pattern="/^0?1[3|4|5|8][0-9]\d{8}$/">
 					</label>
 					<label class="item item-input">
-						<input type="text" placeholder="手机">
+						<input type="email" placeholder="邮箱" ng-model="applyData.email">
 					</label>
 					<label class="item item-input">
-						<input type="text" placeholder="邮箱">
+						<input type="text" placeholder="单位" ng-model="applyData.company">
 					</label>
 					<label class="item item-input">
-						<input type="text" placeholder="单位">
-					</label>
-					<label class="item item-input">
-						<input type="text" placeholder="职位">
+						<input type="text" placeholder="职位" ng-model="applyData.position">
 					</label>
 				</div>
 				<div class="padding commitButton">
-					<button type="submit" class="button button-block button-positive">确定报名</button>
+					<input type="submit" value="确定报名" ng-enable="submitApplyBtn" class="button button-block" ng-click="apply(applyForm.$invalid)"></input>
 				</div>
 			</form>
 
 		</ion-content>
 	</div>	
+</script>
+
+<script id="meetBindTel.html" type="text/ng-template">
+	<ng-form class="bind-dialog">
+      <div class="bind-dialog-box">
+        <p>请绑定一个手机号</p>
+        <div class="phone-box phone clearfix">
+          <input type="number" placeholder="请输入您的手机号" ng-model="bindData.username" required>
+        </div>
+        <div class="phone-box ma-box clearfix">
+          <input type="number" placeholder="请输入验证码" ng-model="bindData.code" class="ma" required>
+          <div class="button button-small ma-btn" ng-click="sendCode()" ng-show="!codeSendOk">发送验证码</div>
+			<div class="button button-small ma-btn" ng-show="codeSendOk">{{ count }}S</div>
+        </div>
+        <div class="submit clearfix">
+        	<input type="button" value="确定" ng-click="submitBind()" class="confirm">
+        	<input type="button" value="取消" ng-click="cancelBind()" class="cancel">
+        </div>
+      </div>
+    </ng-form>
+</script>
+
+<script id="meetLogin.html" type="text/ng-template">
+	<ng-form class="login-dialog">
+      <div class="login-dialog-box">
+        <p>快速登录</p>
+        <div class="username-box clearfix">
+          <input type="text" 
+          			 placeholder="请输入用户名" 
+          			 class="username-input" 
+          			 ng-model="meetLoginData.username" 
+          			 required>
+        </div>
+        <div class="password-box clearfix">
+          <input type="password" 
+          			 placeholder="请输入密码" 
+          			 ng-model="meetLoginData.password" 
+          			 class="password-input" 
+          			 required>
+        </div>
+        <div class="submit clearfix">
+        	<input type="button" value="登录" ng-click="submitLogin()" class="confirm">
+        	<input type="button" value="取消" ng-click="cancelLogin()" class="cancel">
+        </div>
+      </div>
+    </ng-form>
 </script>

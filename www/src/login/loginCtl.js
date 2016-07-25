@@ -1,10 +1,11 @@
 angular.module('Login', [])
 
-.controller("LoginCtl", function($scope, $ionicPopup, AuthService) {
+.controller("LoginCtl", function($scope, $ionicPopup, AuthService, $timeout, $location) {
 
 	$scope.wechatLogin = function() {
-		AuthService.wechatLogin().success( function(data) {
-			window.history.back();
+		var url = "http://www.51banhui.com/webapp#tab/mine"
+		AuthService.wechatLogin(url).success( function(data) {
+			// window.history.back();
 		}).error(function(data) {
 			$ionicPopup.alrt({
 				title: '微信登录失败',
@@ -13,31 +14,21 @@ angular.module('Login', [])
 			})
 		})
 	}
-	// $scope.wechatLogin = function() {
-	// 	Wechat.auth("snsapi_userinfo", function (response) {
-	
-	// 		webRequest.getWechatUserInfo(response.code).then( function(data) {
-	// 			$scope.jsonData = data;
-	// 			$ionicPopup.alert({
-	// 				title: '登录成功，获取用户信息',
-	// 				template: '获取用户信息成功：' + JSON.stringify(data),
-	// 				okText: '确定'
-	// 			});
-	// 		}, function(data) {
-	// 			$scope.jsonData = data;
-	// 			$ionicPopup.alert({
-	// 				title: '登录成功',
-	// 				template: '获取用户信息失败：' + JSON.stringify(data),
-	// 				okText: '确定'
-	// 			});
-	// 		})
 
-	// 	}, function (reason) {
-	// 		$ionicPopup.alert({
-	// 			title: '授权登录',
-	// 			template: '授权登录失败：' + JSON.stringify(reason),
-	// 			okText: '确定'
-	// 		});
-	// 	})
-	// }
+	$scope.loginData = {
+		username: '',
+		password: ''
+	}
+
+	$scope.login = function() {
+
+		var username = $scope.loginData.username;
+		var password = $scope.loginData.password;
+
+		AuthService.login(username, password, "正在登录中...").then(function(data) {
+			$location.path("/tab/mine");
+		}, function(err) {
+
+		})
+	}
 })

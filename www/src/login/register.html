@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head>
+
+<ion-view view-title="登录">
+	<ion-content class="register_content">
+		<div class="grid_container">
+			<ng-form action="" method="post" class="form form_register">
+
+				<div class="form_field">
+					<label class="icon ion-ios-telephone form_icon" for="register_username">
+						<span class="hidden">手机号码</span>
+					</label>
+					<input id="register_username" type="text" class="form_input" ng-model="registerData.username" placeholder="请输入手机号码" required></div>
+
+				<div class="form_field">
+					<label class="icon ion-android-lock form_icon" for="register_password">
+						<span class="hidden">密码</span>
+					</label>
+					<input id="register_password" type="password" class="form_input" ng-model="registerData.password" placeholder="密码" required></div>
+
+				<div class="form_field">
+					<label class="icon ion-ios-information form_icon" for="register_code">
+						<span class="hidden">验证码</span>
+					</label>
+					<input id="register_code" type="text" class="form_input" ng-model="registerData.code" placeholder="验证码" required>
+					<div class="button button-small button_code" ng-click="sendCode()" ng-show="!codeSendOk">发送验证码</div>
+					<div class="button button-small button_code" ng-show="codeSendOk">{{ count }}S</div>
+				</div>
+				<div class="form_field">
+					<input type="button" value="注册" ng-click="submitRegister()">
+				</div>
+
+			</ng-form>
+		</div>
+	</ion-content>
+</ion-view>

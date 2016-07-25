@@ -3,11 +3,11 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
-<link type="text/css" rel="stylesheet" href="src/home/home.css">
-
+  <link type="text/css" rel="stylesheet" href="src/home/home.css">
+  
 </head>
 
-<ion-view view-title="首页">
+<ion-view view-title="首页" hide-nav-bar="true">
 <!-- 	<ion-nav-buttons side="left">
     <button class="button icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="">     舟山</button>
   </ion-nav-buttons>
@@ -19,113 +19,63 @@
     <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click=""></button>
   </ion-nav-buttons> -->
 	
-  <ion-content class="has-header contentBkg">
-    <!-- <div>ticket: {{ ticket }}</div>
-    <div>nonceStr: {{ nonceStr }}</div>
-    <div>timeStamp: {{ timeStamp }}</div>
-    <div>signature: {{ signature }}</div> -->
-	<!-- 栅格 -->
-		<div class="news">
-			<div class="row">
-				<div class="con_hot col col-20"></div>
-				<div class="con_hot_news col col-75">
-					<a href="http://www.51banhui.com/Wap/meet/detail/id/1.html">
-						2015第十四届中国国际玩具及教育设备展览会</a>
-					<a href="http://www.51banhui.com/Wap/meet/detail/id/2.html">
-						2015 国际LNG储运技术装备展览会暨高峰论坛</a>				
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>	
+  <ion-content class="home_content">
+        <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-		<div class="banner_wrap">
-			<ion-slide-box active-slider="myActiveSlide">
-				<ion-slide>
-					<a href="http://www.51banhui.com/Wap/meet/detail/id/457.html">
-							<img alt="2016上海国际铸造展览会" src="src/home/images/banner1.jpg"></a>
+		<div class="news_hot_wrap">
+			<ion-slide-box delegate-handle="image-viewer"
+                           active-slider="true"
+                           does-continue="true"
+                           auto-play="true"
+                           slide-interval="5000">
+				<ion-slide data-ng-repeat="data in newsHotDatas" class="news_hot_img_wrap">
+					<a href="{{ data.url }}" >
+						<img alt="{{ data.title }}" ng-src="{{ data.picture }}"/>
+                    </a>
 				</ion-slide>
-				<ion-slide>
-					<a href="http://www.51banhui.com/Wap/meet/detail/id/674.html">
-							<img alt="中国自控电气展" src="src/home/images/banner2.jpg"></a>
-				</ion-slide>
-				<ion-slide>
-					<a href="http://www.51banhui.com/Wap/meet/detail/id/228.html">
-							<img alt="2016年（春季）第3届广东互联网金融博览会" src="src/home/images/banner3.jpg"></a>
-				</ion-slide>
-<!-- 				<ion-slide>
-					<a href="http://www.51banhui.com/Wap/meet/detail/id/275.html">
-						<img alt="2016中国智慧教育及在线课堂展" src="src/home/images/banner4.jpg"></a>
-				</ion-slide>
- -->			</ion-slide-box>
+    		</ion-slide-box>
 		</div>
 
-		<!-- <div class="banner_wrap">
-			<p>{{ jsonDatas | json }}</p>
-		</div> -->
+    <div class="search_wrap">
+      <a class="search_content" ui-sref="tabs.home-search()">
+        <i class="search_icon">搜索你想参加的会议</i>
+        
+      </a>
+    </div>
+
+        <div class="news">
+            <div class="row">
+                <div class="con_hot col col-20"></div>
+                <div class="con_hot_news col col-75">
+                  <p>蟠桃会—免费会议策划与营销专家</p>      
+                </div>
+                
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="hot_point" ng-repeat="data in meetHotPointDatas">
+                <a ng-click="toMeetDetail(data)" >
+                        {{ data.title }}</a>
+            </div>
+        </div> 
 
 		<div class="list" style="margin-top:10px">
-			<a class="item item-text-wrap" href="#/tab/home/meetDetail/{{ data.id }}" ng-repeat="data in jsonDatas">
-				<h2>
-					{{ data.title }}
-				</h2>
-				<p class="ion-ios-clock-outline">
-    			{{ data.start_time }}
-    		</p>
-    		<p class="ion-ios-location-outline">
-    			{{ data.area }}
-    		</p>
-    		<div class="free-hot">
-					<i class="free" ng-show="data.isfree">免</i>
-				</div>
+      <i class="item item-divider hot_title">
+        <p>会议推荐</p>
+      </i>
+			<a class="item item-thumbnail-right item-text-wrap hot_meet_content" ng-click="toMeetDetail(data)" ng-repeat="data in meetHotDatas track by $index">
+        <img ng-src="{{ data.thumb }}"/>
+				<h2 ng-bind="data.title"></h2>
+        <div> 
+          <i class="ion-ios-clock-outline hot_meet_icon_left"></i>
+          <p ng-bind="data.start_time"></p>
+        </div>
+        <div> 
+          <i class="ion-ios-location-outline hot_meet_icon_left"></i>
+          <p ng-bind="data.site"></p>
+        </div>
 			</a>
 		</div>
 
-    <!-- <div class="list" style="margin-top:10px">
-    	<a class="item item-text-wrap" href="#" >
-    		<h2>
-    			2015第十四届中国国际玩具及教育设备展览会
-    		</h2>	
-    		<p class="ion-ios-clock-outline">
-    			2015-12-01 09:00
-    		</p>
-    		<p class="ion-ios-location-outline">
-    			上海新国际博览中心
-    		</p>
-    		<div class="free-hot">
-					<i class="free">免</i>
-				</div>
-    	</a>
-    	
-    	<a class="item item-text-wrap" href="#" >
-    		<h2>
-    			2015 国际LNG储运技术装备展览会暨高峰论坛
-    		</h2>	
-    		<p class="ion-ios-clock-outline">
-    			2015-12-01 09:00
-    		</p>
-    		<p class="ion-ios-location-outline">
-    			上海新国际博览中心
-    		</p>
-    		<div class="free-hot">
-					<i class="free">免</i>
-				</div>
-    	</a>
-
-    	<a class="item item-text-wrap" href="#" >
-    		<h2>
-    			CHINA-PHARM 2015第二十届中国国际医药（化妆品）工业展览会暨技术交流会
-    		</h2>	
-    		<p class="ion-ios-clock-outline">
-    			2015-12-01 09:00
-    		</p>
-    		<p class="ion-ios-location-outline">
-    			上海新国际博览中心
-    		</p>
-    		<div class="free-hot">
-					<i class="free">免</i>
-				</div>
-    	</a>
-		</div> -->
-    <!-- </div> -->
   </ion-content>
 </ion-view>

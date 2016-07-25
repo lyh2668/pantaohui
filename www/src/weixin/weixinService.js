@@ -2,14 +2,20 @@ angular.module('Weixin', [])
 
 .constant('WxConstant', {
 	'Appid': 'wx9a2d4679eed0ae8b',
-	'AppSecret': 'd1d3713bfdd11b0a658c192d4594d1ad',
 	'url': 'http://www.51banhui.com/webapp/index.html',
 	'wxConfigUrl': 'http://www.51banhui.com/wap/index/getpackage',
 	'wxUserInfoUrl': "http://www.51banhui.com/wap/user/index"
 })
 
-.service('WeixinService', function(WxConstant, $http, $window, $location, $q, $ionicPopup) {
-	var code = ""
+.constant('BaiduConstant', {
+	'Appid': '8169585',
+	'Apikey': 'ljNzZIS8iiBzuggRfonviShj',
+	'Secretkey': '7F0ibLsXcsgx23kvPK3O8NyGWWUENsz2',
+	'Ak': '978ae7c0223b393d592b23ffa9e7a8ed'
+})
+
+.service('WeixinService', function(WxConstant, $http, $window, $location, $q, $rootScope, $ionicPopup, BaiduConstant, Locals, webRequest) {
+	var isWeixin = navigator.userAgent.toLowerCase().indexOf('micromessenger') != -1;
 
 	var getNonceStr = function() {
 		return Math.random().toString(36).substr(2, 15)
@@ -38,10 +44,12 @@ angular.module('Weixin', [])
 		return deferred.promise
 	}
 
-	var getWxUserInfo = function(code) {
+	var getWxUserInfo = function(access_token, openid) {
 		var deferred = $q.defer();
 
-		$http.get((WxConstant.wxUserInfoUrl + "?code=" + code), {'Content-Type' : 'application/json'}).success( function(data) {
+		$http.get((WxConstant.wxUserInfoUrl + "?access_token=" + access_token + "&openid=" + openid), 
+			{'Content-Type' : 'application/json'}).success( function(data) {
+			console.log(data);
 			deferred.resolve(data);
 		}).error(function(data) {
 			deferred.reject(data);
@@ -49,25 +57,73 @@ angular.module('Weixin', [])
 		return deferred.promise
 	}
 
-	return {
-		getLoginCode: function() {
+	var getWxAccessToken = function(code) {
+		var deferred = $q.defer();
 
-			var isWeixin = navigator.userAgent.toLowerCase().indexOf('micromessenger') != -1;
-			if($window.location.search) {
-				code = $window.location.search.substr(6).split("&")[0]
-			} else if (isWeixin){
+		$http.get((WxConstant.wxUserInfoUrl + "?code=" + code), {'Content-Type' : 'application/json'}).success( function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		}).error(function(data) {
+			deferred.reject(data);
+		})
+		return deferred.promise
+	}
+
+	window.renderReverse = function(data) {
+		console.log(data);
+		var city = data.result.addressComponent;
+		if (city) {
+			Locals.setObject("cityPosObj", city);
+		}
+	}
+
+	var getCityName = function(latitude, longitude) {
+		var deferred = $q.defer();
+
+		var url = 'http://api.map.baidu.com/geocoder/v2/?ak=' + BaiduConstant.Ak +
+				'&location=' + latitude + ',' + longitude + '&output=json&pois=1'
+		webRequest.getServiceDataWithJsonp(url).then(function(data) {
+			deferred.resolve(data.result.addressComponent);
+		}, function(err) {
+			deferred.reject(err);
+		})
+
+		return deferred.promise;
+		// $http.jsonp(url, {'Content-Type' : 'application/json'});
+	}
+
+	return {
+		isWeixin: isWeixin,
+		getLoginCode: function() {
+			var code = ""
+			var reg = /(\w+)=(\w+)/ig
+			var params = {}
+			$location.absUrl().replace(reg, function(a, b, c){ params[b] = c; });
+
+			console.log("url params:", params);
+			// alert("params: ", params, ", code: ", code);
+			// alert("code: ", code);
+			// alert($location.absUrl());
+			if("code" in params) {
+				// code = $window.location.search.substr(6).split("&")[0]
+				code = params.code;
+			}
+			return code;
+		},
+		wxLogin: function(redirect_uri) {
+			if (isWeixin){
 				$window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConstant.Appid +
-				"&redirect_uri=http://www.51banhui.com/webapp/index.html" + 
+				"&redirect_uri=" + encodeURIComponent(redirect_uri) + 
 				 	"&response_type=code&scope=snsapi_userinfo&&state=123#wechat_redirect"
 				// $window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize" + 
 				// 	"?appid=" + WxConstant.Appid + "&redirect_uri=http://www.51banhui.com/webapp/index.html" + 
 				// 	"&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
 			}
-			return code;
 		},
 		getNonceStr: getNonceStr,
 		getTimeStamp: getTimeStamp,
 		createSignature: createSignature,
+		getWxAccessToken: getWxAccessToken,
 		getWxUserInfo: getWxUserInfo,
 		config: function() {
 			var timeStamp = getTimeStamp()
@@ -85,15 +141,119 @@ angular.module('Weixin', [])
     			signature: signature,// 必填，签名，见附录1
     			jsApiList: [
     				'onMenuShareTimeline',
-    				'onMenuShareAppMessage'
+    				'onMenuShareAppMessage',
+    				'onMenuShareQQ',
+    				'onMenuShareWeibo',
+    				'onMenuShareQZone',
+    				'getLocation'
     			] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 				})
 			})
-		}
+		},
+		getLocation: function() {
+			var deferred = $q.defer();
+			wx.ready(function () {
+				wx.getLocation({
+    			type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+    			success: function (res) {
+        		var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+        		var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+        		var speed = res.speed; // 速度，以米/每秒计
+        		var accuracy = res.accuracy; // 位置精度
+
+
+						getCityName(latitude, longitude).then(function(data) {
+							deferred.resolve(data);
+						}, function(err) {
+							deferred.reject(err);
+						})
+   				},
+   				cancel: function (res) {
+        		$ionicPopup.alert({
+							title: '获取地理位置',
+							template: '用户拒绝授权获取地理位置' + res,
+							okText: '关闭'
+						})
+						deferred.reject(res);
+   				}
+				})
+			})
+			return deferred.promise;
+		},
 	}
 })
 
 .service('WxShare', function($ionicActionSheet, $ionicPopup) {
+
+	var isWeixin = navigator.userAgent.toLowerCase().indexOf('micromessenger') != -1;
+
+	var wxShare = function(title, desc, thumb, url) {
+		wx.onMenuShareTimeline({
+    	title: title, // 分享标题
+    	link: url, // 分享链接
+    	imgUrl: thumb, // 分享图标
+    	success: function () { 
+        // 用户确认分享后执行的回调函数
+    	},
+    	cancel: function () { 
+        // 用户取消分享后执行的回调函数
+    	}
+		});
+
+		wx.onMenuShareAppMessage({
+    	title: title, // 分享标题
+    	desc: desc, // 分享描述
+    	link: url, // 分享链接
+    	imgUrl: thumb, // 分享图标
+    	success: function () { 
+    	    // 用户确认分享后执行的回调函数
+    	},
+    	cancel: function () { 
+    	    // 用户取消分享后执行的回调函数
+    	}
+		});
+
+		wx.onMenuShareQQ({
+    	title: title, // 分享标题
+    	desc: desc, // 分享描述
+    	link: url, // 分享链接
+    	imgUrl: thumb, // 分享图标
+    	success: function () { 
+    	   // 用户确认分享后执行的回调函数
+    	},
+    	cancel: function () { 
+    	   // 用户取消分享后执行的回调函数
+    	}
+		});
+
+		wx.onMenuShareWeibo({
+    	title: title, // 分享标题
+    	desc: desc, // 分享描述
+    	link: url, // 分享链接
+    	imgUrl: thumb, // 分享图标
+    	success: function () { 
+    	   // 用户确认分享后执行的回调函数
+    	},
+    	cancel: function () { 
+    	    // 用户取消分享后执行的回调函数
+    	}
+		});
+
+		wx.onMenuShareQZone({
+    	title: title, // 分享标题
+    	desc: desc, // 分享描述
+    	link: url, // 分享链接
+    	imgUrl: thumb, // 分享图标
+    	success: function () { 
+    	   // 用户确认分享后执行的回调函数
+    	},
+    	cancel: function () { 
+    	    // 用户取消分享后执行的回调函数
+    	}
+		});
+
+	}
+
 	var share = function(title, desc, thumb, url) {
 		console.log(title, desc, thumb, url)
 		$ionicActionSheet.show({
@@ -107,70 +267,14 @@ angular.module('Weixin', [])
 
 			},
 			buttonClicked: function(index) {
-
-				if (typeof Wechat === "undefined") {
-					console.log('Wechat is undefined.')
-					var wxTtitle = title ? title: "蟠桃会"
-					var wxLink = url ? "http://183.245.210.26:8080/#" + url : "#" 
-					var wxImgUrl = thumb ? "http://183.245.210.26:8080/" + thumb : null
-					var wxDesc = desc ? desc : "没有描述信息"
-					switch(index) {
-						case 0: {
-							console.log("onMenuShareTimeline");
-							wx.ready(function () {
-								console.log("ready");
-								wx.onMenuShareTimeline({
-									title: wxTtitle,
-									link: wxLink,
-									imgUrl: wxImgUrl,
-									success: function() {
-
-									},
-									cancel: function() {
-
-									}
-									// fail: function(res) {
-
-									// }
-								})
-								wx.error(function(res){
-            			$ionicPopup.alert({
-										title: '分享失败',
-										template: 'res',
-										okText: '关闭'
-									})
-								})
-							})
-							break;
-						}
-						case 1: {
-							console.log("onMenuShareAppMessage")
-							wx.onMenuShareAppMessage({
-								title: wxTtitle,
-								desc: wxDesc,
-								link: wxLink,
-								imgUrl: wxImgUrl,
-								success: function() {
-
-								},
-								cancel: function() {
-
-								}
-							})
-							break;
-						}
+				switch(index) {
+					case 0: {
+						shareViaWechat(Wechat.Scene.TIMELINE, title, desc, url, thumb);
+						break;
 					}
-				}
-				else {
-					switch(index) {
-						case 0: {
-							shareViaWechat(Wechat.Scene.TIMELINE, title, desc, url, thumb);
-							break;
-						}
-						case 1: {
-							shareViaWechat(Wechat.Scene.SESSION, title, url, thumb);
-							break;
-						}
+					case 1: {
+						shareViaWechat(Wechat.Scene.SESSION, title, url, thumb);
+						break;
 					}
 				}
 				return true
@@ -212,6 +316,7 @@ angular.module('Weixin', [])
 	}
 
 	return {
-		share: share
+		share: share,
+		wxShare: wxShare
 	}
 })

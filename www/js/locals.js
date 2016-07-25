@@ -16,7 +16,11 @@ angular.module('starter.locals', [])
     },
     //读取对象
     getObject: function (key) {
-      return JSON.parse($window.localStorage[key] || '{}');
+      return JSON.parse($window.localStorage[key] || null);
+    },
+
+    remove: function(key) {
+      return $window.localStorage.removeItem(key);
     }
   }
 }])

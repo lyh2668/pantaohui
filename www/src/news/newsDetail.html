@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link type="text/css" rel="stylesheet" href="src/news/news.css">
-
 </head>
 
 <ion-view view-title="资讯详情">
-	<ion-nav-buttons side="right">
+<!-- 	<ion-nav-buttons side="right">
     <button class="button button-icon ion-android-share-alt button-positive"  style="background: transparent" ng-click="share()" ng-show="hasWechat()"></button>
-  </ion-nav-buttons>
-	<ion-content class="padding">
+  </ion-nav-buttons> -->
+	<ion-content class="news_detail_content" ng-show="loaded">
 
 		<div class="detail_title">
 			<h1 class="detail_title_h1">{{ detailInfo.title }}</h1>
 		</div>
 
 		<div class="detail_subTitle">
-			<p style="float:left">发布：{{ detailInfo.create_time }}</p>
-			<p style="float:right" class= "keywords">{{ detailInfo.keywords }} </p>
+			<p style="float:left">{{ detailInfo.inputtime }}</p>
+			<p style="float:right" ng-if="detailInfo.author">编辑：{{ detailInfo.author }}  </p>
+			<!-- <p style="float:right" class= "keywords">{{ detailInfo.keywords }} </p> -->
 		</div>
 
-		<div class="">
-			<pre data-ng-bind-html="content | trustHtml"></pre>
+<!-- 		<div class="head_image">
+			<img ng-src="{{ detailInfo.thumb }}"/>
+		</div>	 -->
+
+		<div class="detail-content">
+			<pre data-ng-bind-html="detailInfo.newsdata.content | trustHtml"></pre>
 		</div>
+
+		<div class="content_after">
+			<div class="copyfrom">来源：{{ detailInfo.copyfrom }}</div>	
+			<div class="hits">阅读 {{ detailInfo.hits }}</div>
+			<div class="keywords">{{ detailInfo.keywords }}</div>
+		</div>
+
+		<img class="news_footer_img" src="src/news/images/news_footer.jpg"/>
+
+		<div class="bottom_wrap">
+			<span style="padding-left: 10px">蟠桃会－免费会议策划与营销专家</span>
+			<a ng-click="backHome()">打开APP</a>
+		</div>
+
 
 <!-- 	<div class="ds-thread" data-thread-key="newsDetail{{ id }}" data-title="{{ detailInfo.title }}" data-url="{{ url }}"></div> -->
 

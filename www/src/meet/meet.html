@@ -4,8 +4,8 @@
 	<script type="text/ng-template" ng-include="'src/popover/popMore.html'"></script>
 </head>
 
-<ion-view view-title="">
-	<ion-nav-buttons side="left">
+<ion-view view-title="找会">
+<!-- 	<ion-nav-buttons side="left">
     <button class="button button-icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="toCityList()" data-ng-init="getCity()">    {{ city }}</button>
   </ion-nav-buttons>
   <ion-nav-title>
@@ -13,55 +13,142 @@
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <button class="button button-icon ion-ios-search button-positive"  style="background: transparent" ng-click="clickSearch()"></button>
-    <button class="button button-icon ion-funnel button-positive"  style="background: transparent" ng-click="toScreen()"></button>
-    <!-- <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click="popover.show($event)"></button> -->
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
 
-	<ion-content class="contentBkg">
+  <div class="navBar">
+<!--     <button class="button button-icon ion-ios-location-outline button-positive" style="" ng-click="toCityList()" id="meetCityBtn">    {{ city }}</button>
 
-		<ion-refresher on-refresh="doRefresh()"
-									 pulling-text="下拉刷新..."
-									 refreshing-text="刷新中!"
-									 refreshing-icon="ion-loading-a">
-		</ion-refresher>
-    
-    <label class="item-input-wrapper" ng-show="showSearch" style="background: white">
-        <i class="icon ion-ios-search-strong placeholder-icon"></i>
-        <input type="search"
-               placeholder="搜索会议"
-               ng-model="search"
-               ng-focus="searchFocused = true"
-               ng-blur="searchFocused = false"
-               ng-change="scrollTop()"
-               class="full-width"
-               >
-        <a ng-if="search.length"
-           on-touch="clearSearch()">
-           <i class="icon ion-ios-close placeholder-icon"></i>
-         </a>
+    <div class="navTitle">
+      <p>
+        找会
+      </p>
+    </div>
+
+    <button class="button button-icon ion-ios-search button-positive" style="background: transparent" ng-click="toSearch()" id="navSearchBtn"></button> -->
+    <div class="search_wrap">
+      <a class="search_content" ui-sref="tabs.meet-search()">
+        <i class="search_icon">搜索你想参加的会议</i>
+      </a>
+    </div>
+  </div>
+
+  <!-- 需要解决的几个问题：
+  1. 建立背景层，touch下拉框之外的区域使下拉框收起  已解决
+  2. 下拉框列数自适应，最大行数不超过8行，超过部分产生scroll滚动 已解决
+  -->
+  <div class="dropdown-has-header">
+    <div class="dropdown">
+      <label class="toggleLabel" ng-click="toCityList()">
+        <img class="filterImg" src="src/meet/images/city.png"/>
+        <i>{{ city }}</i>
+      </label>
+      <input id="toggle1" type="checkbox" ng-click="touchToggle1()" ng-model="toggle1Checked">
+      <label class="toggleLabel">
+        <img class="filterImg" src="src/meet/images/domain.png"/>
+        {{ toggle1LabelTitle }}
+      </label>
+      <input id="toggle2" type="checkbox" ng-click="touchToggle2()" ng-model="toggle2Checked">
+      <label class="toggleLabel">
+        <img class="filterImg" src="src/meet/images/time.png"/>
+        {{ data.second.title }}
+      </label>
+      <input id="toggle3" type="checkbox" ng-click="touchToggle3()" ng-model="toggle3Checked">
+      <label class="toggleLabel">
+        <img class="filterImg" src="src/meet/images/sort.png"/>
+        {{ data.third.title }}
       </label>
 
-		<div class="dropdown_bk">
-			<label class="button button-small button-icon icon-right ion-arrow-down-b" ng-click="clickMeetDomain()">{{ meetDomain }}</label>
- 
- 			<label class="button button-small button-icon icon-right ion-arrow-down-b" ng-click="clickMeetTime()">{{ meetTime }}</label>
- 			<label class="button button-small button-icon icon-right ion-arrow-down-b" ng-click="clickMeetType()">{{ meetType }}</label>
+      <div class="dropdown-content" id="dropdown-content1">
+        <ion-content class="left-dropdown-content" id="left-dropdown-content1" ng-style="" delegate-handle="leftDropdownScroll">
+          <div ng-repeat="item in meetDomain" class="">
+              <input type="radio" name="radio-set-1"  
+                                                   ng-click="clickMeetClass(item)"
+                                                   ng-model="data.first"
+                                                   ng-value="item"
+                                                   >
+              <a href="#">{{ item.title }}</a>
+          </div>
+        </ion-content>
+        <ion-content class="right-dropdown-content" id="right-dropdown-content1" ng-show="showSubMeetClass" delegate-handle="rightDropdownScroll">
+          <div class="list">
+            <div class="item" ng-repeat="item in meetSubClass track by $index">
+              
+              <input type="radio" name="radio-set-1-1" ng-checked="ture"
+                                                       ng-value="item"
+                                                       ng-click="clickMeetSubClass(item)"
+                                                   >
+              <img src="src/screen/images/checked.png"/>
+              <label class="">
+                {{ item.title }}
+              </label>
+    
+            </div>
+          </div>
+        </ion-content>
 
-      <div class="list" ng-show="showMenu">
-        <ion-radio class="item" ng-repeat="item in menu" 
-                                ng-value="item" 
-                                ng-model="data.meetModelData" 
-                                ng-change="meetDataChange(item)">
-          {{ item }}
-        </ion-radio>
+        <ion-content class="right-dropdown-content" id="right-dropdown-content1" ng-show="showSubMeetClass" delegate-handle="rightDropdownScroll">
+          <div class="list">
+            <div class="item" ng-repeat="item in meetSubClass">
+              
+              <input type="radio" name="radio-set-1-1" ng-checked="ture"
+                                                       ng-value="item"
+                                                       ng-click="clickMeetSubClass(item)"
+                                                   >
+              <img src="src/screen/images/checked.png"/>
+              <label class="">
+                {{ item.title }}
+              </label>
+    
+            </div>
+          </div>
+        </ion-content>
       </div>
- 			<!-- <select ng-model="meet.currentActivity" class="form-control" ng-options="act for act in meet.activities">
- 			</select> -->
+    <!-- </div> -->
 
- 		</div>
+    <!-- <div class="dropdown"> -->
+      
+      <div class="dropdown-content" id="dropdown-content2" style="height: 141px">
+        <ion-content class="left-dropdown-content" id="left-dropdown-content2">
+          <div ng-repeat="item in meetTime" class="mainClas col">
+              <input type="radio" name="radio-set-2"  
+                                                   ng-click="clickMeetTime(item)"
+                                                   ng-model="data.second"
+                                                   ng-value="item"
+                                                   >
+              <a href="#">{{ item.title }}</a>
+          </div>
+        </ion-content>
+      </div>
 
-		<div class="list">
-			<a class="item item-text-wrap" href="#/tab/meet/detail/{{data.id}}" ng-repeat="data in jsonDatas">
+      <div class="dropdown-content" id="dropdown-content3" style="height: 141px">
+        <ion-content class="left-dropdown-content" id="left-dropdown-content3">
+          <div ng-repeat="item in meetSort" class="mainClas col">
+              <input type="radio" name="radio-set-3"  
+                                                   ng-click="clickMeetSort(item)"
+                                                   ng-model="data.third"
+                                                   ng-value="item"
+                                                   >
+              <a href="#">{{ item.title }}</a>
+          </div>
+        </ion-content>
+      </div>
+    </div>
+  </div>
+
+
+	<ion-content class="contentBkg content-has-dropdown" style="" delegate-handle="contentScroll">
+
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>	
+
+    <div class="backup" ng-show="showBackup" ng-click="hideBackup()">
+    </div>
+
+    <div class="meet_not_found" ng-if="!jsonDatas.length">
+      <img style="width:80%" ng-src="src/meet/images/not_found.png"/>
+    </div>
+    
+		<div class="list meetList">
+			<a class="item item-text-wrap" ng-click="toMeetDetail(data)" ng-repeat="data in jsonDatas">
 				<h2>
 					{{ data.title }}
 				</h2>
@@ -69,13 +156,25 @@
     			{{ data.start_time }}
     		</p>
     		<p class="ion-ios-location-outline">
-    			{{ data.area }}
+    			{{ data.site }}
     		</p>
-    		<div class="free-hot">
+        <div class="subClass">
+          <label class="subClassLabel" ng-repeat="item in data.subClass" ng-click="clickSubClassLabel(item)">
+            {{ item.title }}
+          </label>
+        </div>
+<!--     		<div class="free-hot">
 					<i class="free" ng-show="data.isfree">免</i>
-				</div>
+				</div> -->
 			</a>
 		</div>
+
+    <ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+
 	</ion-content>
 </ion-view>
 </html>

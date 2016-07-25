@@ -2,16 +2,18 @@
 	position: relative;
 	margin: 0 0 20px 0;
 	background: white;
-	height: 80px;
-}
-
-.userHeaderBkg :hover {
-	background: #ccc;
+	height: 160px;
+	line-height: 160px;
 }
 
 .userHeaderBkg .descrp {
-	height: 80px;
+	height: 30px;
+	line-height: 20px;
+	position: relative;
+	text-align:center;
+	top: 50%;
 	padding-top: 20px;
+	/* padding-top: 66px; */
 }
 
 .userHeaderBkg .sub {
@@ -20,22 +22,43 @@
 }
 
 .headerThumb {
-	margin: 10px;
-	margin-left: 25%;
-	width: 64px;
-	height: 64px;
-	border-radius: 40px;
-	/* background: url('images/未登录.png'); */
-	background-repeat: repeat;
-	background-size: 100% 100%;
+	position: absolute;
+	/* margin-left: 25%; */
+	left: 50%;
+	margin-left: -32px;
+	margin-top: -20px;
 	float:left;
 }
 
 .headerThumb img {
 	max-width: 64px;
 	max-height: 64px;
+	border-radius: 50%;
+	background-size: 100% 100%;
+	vertical-align:middle;
 }
 
 .item .icon-color {
-	color: #e7608b;
+	color: #f24182;
+}
+
+.item .icon-myPublish {
+	background: url("./images/myPublish.png") center no-repeat;
+  background-size: 24px 24px;
+  width: 24px;
+  margin-left: 5px;
+}
+
+.item .icon-myHover {
+	background: url("./images/myHover.png") center no-repeat;
+  background-size: 26px 26px;
+  width: 26px;
+  margin-left: 4px;
+}
+
+.item .ion-about {
+	background: url("./images/about.png") center no-repeat;
+  background-size: 24px 24px;
+  width: 24px;	
+  margin-left: 5px;
 }

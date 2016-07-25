@@ -6,65 +6,61 @@
 </head>
 
 <ion-view view-title="资讯">
-	
-	<ion-nav-buttons side="left">
-    <!-- <button class="button button-icon ion-ios-location-outline button-positive" style="background: transparent" ng-click="">     舟山</button> -->
-  </ion-nav-buttons>
-  <ion-nav-buttons side="right">
-    <button class="button button-icon ion-ios-search button-positive"  style="background: transparent" ng-click=""></button>
-<!--     <button class="button button-icon icon ion-ios-plus-empty button-positive"  style="background: transparent" ng-click=""></button> -->
-  </ion-nav-buttons>
 
-	<ul class="bar bar-subheader slide-tab ">
-			<li ng-class="slideIndex == 0 ? 'current':''" style="float: left">
-				<a href="#" ng-click="activeSlide(0)">热点</a>
-			</li>
-			<li ng-class="slideIndex == 1 ? 'current':''" style="float: right">
-				<a href="#" ng-click="activeSlide(1)">宝典</a>
-			</li>
-		</ul>
-	<!-- <ion-content class="has-subheader"> -->
+	<div class="slide-tab">
+		<input type="radio" name="radio-set" ng-checked="slideIndex == 0 ? 'checked' : ''" ng-click="activeSlide(0)" id="news_slide_0">
+		<p>热 点</p>
+		<input type="radio" name="radio-set" ng-checked="slideIndex == 1 ? 'checked' : ''" ng-click="activeSlide(1)" id="news_slide_1">
+		<p>宝 典</p>
+	</div>
 
-		<!-- <div class="row">	
-		-->
-		
-		<!-- / tabs -->	
-		<!-- </div>	
-		-->
-		<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false" class="">
-			<ion-slide>
-				<!-- 热点 -->			
-				<ion-content class="has-subheader">
-					<div class="card">
-						<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in jsonHotDatas" style="background: #fafafa">
-							<img ng-src="{{ data.thumb }}">			
-							<h2>{{ data.title }}</h2>
-							<p>
-								<label href="#" class="create_time">{{ data.create_time }}</label>
-								<label href="#" class="keywords">{{ data.keywords }}</label>
-							</p>
-						</a>
-					</div>
-				</ion-content>
-			</ion-slide>
-			<ion-slide>
-				<!-- 宝典 -->			
-				<ion-content class="has-subheader">
-					<div class="card">
-						<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in jsonBdDatas">
-							<img ng-src="{{ data.thumb }}">			
-							<h2>{{ data.title }}</h2>
-							<p>
-								<label href="#" class="create_time" style="margin-top: -20">{{ data.create_time }}</label>
-								<label href="#" class="keywords">{{ data.keywords }}</label>
-							</p>
-						</a>
-					</div>
-				</ion-content>
-			</ion-slide>
+	<ion-content class="news_content" delegate-handle＝"news_hot_content" scroll="false" overflow-scroll="ture">
 
-			</ion-slide-box>
-	<!-- </ion-content> -->
+	<ion-slide-box delegate-handle="newsSlider" on-slide-changed="slideChanged(index)" active-slide="slideIndex" ng-if="newsHotDatas" show-pager="false" style="top: 0;bottom: 0;position: absolute !important; width:100%">
+		<ion-slide>	
+			<ion-content>
+				<ion-refresher on-refresh="doRefresh(2)"></ion-refresher>
+				<div class="list newsList">
+					<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in newsHotDatas">
+						<img ng-src="{{ data.thumb }}"/>			
+						<h2>{{ data.title }}</h2>
+						<p class="news_p">
+							<label href="#" class="news_create_time">{{ data.inputtime }}</label>
+						</p>
+						<label class="copyfrom">{{ data.copyfrom | trim }}</label>
+					</a>
+				</div>
+				<ion-infinite-scroll ng-if="more"
+                         		 icon="ion-loading-c"
+                         		 on-infinite="loadMoreData(2)"
+                         		 distance="10%">
+    		</ion-infinite-scroll>
 
+			</ion-content>
+		</ion-slide>
+		<ion-slide>	
+			<ion-content>
+				<ion-refresher on-refresh="doRefresh(5)"></ion-refresher>
+				<div class="list newsList">
+					<a class="item item-thumbnail-left item-text-wrap" href="#/tab/news/detail/{{data.id}}" ng-repeat="data in newsBdDatas">
+						<img ng-src="{{ data.thumb }}"/>			
+						<h2>{{ data.title }}</h2>
+						<p class="news_p">
+							<label href="#" class="create_time" style="">{{ data.inputtime }}</label>
+							
+						</p>
+						<label class="copyfrom">{{ data.copyfrom | trim }}</label>
+					</a>
+				</div>
+				<ion-infinite-scroll ng-if="more"
+                         		 icon="ion-loading-c"
+                         		 on-infinite="loadMoreData(5)"
+                         		 distance="10%">
+    		</ion-infinite-scroll>
+			</ion-content>
+		</ion-slide>
+
+	</ion-slide-box>
+	</ion-content>
 </ion-view>
 </html>

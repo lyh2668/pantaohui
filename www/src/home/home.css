@@ -1,4 +1,166 @@
+.home_content {
+	background: #eee;
+}
+
 .slider {
   height: 100%;
 }
 
+.hot_title {
+	border-left: 5px solid #f24182 !important;
+
+	background: white;
+}
+
+.hot_title p {
+	font-size: 1em;
+	font-weight: 500;
+	margin-left: -5px;
+}
+
+.news_hot_wrap {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  margin-bottom: -5px;
+}
+
+.news_hot_img_wrap {
+	width: 100%;
+}
+
+.news_hot_img_wrap img {
+	height: auto;
+	width: 100%;
+}
+
+ion-slide {
+	transition-duration: .6s;
+} 
+
+.slider-pager {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    text-align: center;
+}
+
+.slider-pager .slider-pager-page {
+    display: inline-block;
+    width: 12px;
+    color: white;
+    text-decoration: none;
+    opacity: 0.5;
+    font-size: 12px;
+    bottom: 20px;
+}
+
+.slider-pager .active {
+
+  color: #f24182;
+}
+
+
+.hot_meet_content p {
+	  padding-right: 46px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.news{
+	background-color: #fff;
+	padding-bottom: 10px;
+}
+
+.news p {
+  font-size: 0.9em;
+  border-bottom: 1px solid #f2f2f2;
+  height: 30px;
+  line-height: 30px;
+}
+
+.news .hot_point {
+  padding: 0 20px;
+}
+
+.news .hot_point > a {
+	display: block;
+	color: #777;
+	text-decoration: none;
+	font-size: 0.875em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.news .con_hot{
+	background: url("images/hot2.png") 10px center no-repeat;
+	background-size: 80%;
+	width: 65px;
+	/* height: 50px; */
+	margin-top: 5px;
+}
+.news .con_hot_news a{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap; 
+	display: block;
+	color:#666;
+	line-height: 25px;
+	width: 100%;
+}
+
+.home_content .list {
+	padding-top: 10px;
+  background: white;
+  border-top: 0px;
+}
+
+.home_content .list .item-divider {
+	border-bottom: 0px;
+	height: 24px;
+	min-height: 24px;
+	line-height: 24px;
+	padding: 0 15px;
+}
+
+.home_content .list .item:nth-child(1) {
+	border-top: 0px;
+}
+
+.home_content .list .item:nth-child(2) {
+	border-top: 0px;
+}
+
+.hot_meet_icon_left {
+	float: left;
+	width: 13px;
+	text-align: center;
+}
+
+.list > .item-text-wrap {
+	padding-top: 15px;
+}
+
+.list > .item-thumbnail-right > img {
+  max-width: 104px;
+  max-height: 65px;
+  margin-top: 5px;
+  border: 1px solid #f2f2f2;
+}
+
+.list > .item-thumbnail-right > img ~ a,
+.list > .item-thumbnail-right > img ~ h1,
+.list > .item-thumbnail-right > img ~ h2,
+.list > .item-thumbnail-right > img ~ h3,
+.list > .item-thumbnail-right > img ~ h4,
+.list > .item-thumbnail-right > img ~ h5,
+.list > .item-thumbnail-right > img ~ h6,
+.list > .item-thumbnail-right > img ~ label,
+.list > .item-thumbnail-right > img ~ p {
+  padding-right: 18px;
+}
+
+.list > .item-thumbnail-right > img ~ div > p {
+	padding-left: 5px;
+}

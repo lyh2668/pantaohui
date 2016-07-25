@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+
 </head>
 
 <ion-view view-title="我的">
-	
-	<ion-nav-buttons side="left">
-  </ion-nav-buttons>
-  <ion-nav-buttons side="right">
-  </ion-nav-buttons>
 
-	<ion-content class="has-header contentBkg">
+	<ion-content class="contentBkg" scrollbar-y="false">
 
-		<div class="userHeaderBkg" ng-click="toLoginView()">
-			<div class="headerThumb">
+		<div class="userHeaderBkg" ng-click="toLoginView()" ng-value="isLogin()">
+			<div class="headerThumb" >
 				<img ng-src="{{ data.thumb }}">
 			</div>
 			<!-- <i class="headerThumb" ng-click="wechatLogin()"></i> -->
@@ -25,29 +19,30 @@
 			</div>
 			<div class="descrp" ng-show="isLogin()">
 				<div class="login">{{ data.nickname }}</div>
-				<div class="sub"></div>
-			</div>
-		</div>
-
-<!-- 		<div class="">
-			<button ng-click="wechatLogin()">wechatLogin</button>
-		</div>
-		<div>
-			{{ jsonData }}
-		</div> -->
-
-		<div class="list">
-			<div class="item item-icon-left">
-				<i class="icon ion-ios-world-outline icon-color"></i>
-				我的会议
-			</div>
-			<div class="item item-icon-left">
-				<i class="icon ion-heart icon-color"></i>
-				我的收藏
+				<div class="sub">{{ data.city }}</div>
 			</div>
 		</div>
 
 		<div class="list">
+			<div class="item item-icon-left" ng-click="toMyPublishMeet()">
+				<i class="icon icon-myPublish"></i>
+				我发布的
+			</div>
+			<div class="item item-icon-left" ng-click="toMyFavorMeet()">
+				<i class="icon icon-myHover"></i>
+				我收藏的
+			</div>
+		</div>
+
+		
+		<div class="list">
+			<div class="item item-icon-left" ui-sref="tabs.about()">
+				<i class="icon ion-about"></i>
+				关于我们
+			</div>
+		</div>
+
+		<!-- <div class="list">
 			<div class="item item-icon-left">
 				<i class="icon ion-ios-chatboxes-outline icon-color"></i>
 				产品反馈
@@ -56,7 +51,7 @@
 				<i class="icon ion-ios-gear-outline icon-color"></i>
 				设置
 			</div>
-		</div>
+		</div> -->
 	</ion-content>
 </ion-view>
 </html>
