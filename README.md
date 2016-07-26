@@ -23,5 +23,6 @@ ocLazyLoad + AngularCSS管理controller和css，实现按需加载。
 
 会员中心（登录、注册、微信授权登录）
 
+使用了PhotoSwipe实现了图片点击放大的功能
 
 上线项目地址：http://www.51banhui.com/webapp, 请用手机浏览或者使用手机调试模式浏览。
