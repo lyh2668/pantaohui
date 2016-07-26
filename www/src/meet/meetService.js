@@ -15,8 +15,9 @@ angular.module('Meet', [])
 
 		var deferred = $q.defer();
 		webRequest.getServiceDataWithJsonp(SERVICE_API_URL.API_MEET_LIST, meetParams).then( function(data) {
-			deferred.resolve(data);
-			meetList = data;
+			meetList = data.list;
+			deferred.resolve(data.list);
+			
 		}, function(err) {
 			deferred.reject(err);
 		})
@@ -33,10 +34,10 @@ angular.module('Meet', [])
 
 		webRequest.getServiceDataWithJsonp(SERVICE_API_URL.API_MEET_LIST, meetParams).then( function(data) {
 
-			meetList = meetList.concat(data);
+			meetList = meetList.concat(data.list);
 			console.log("loadmore:", meetParams, meetList)
 
-			deferred.resolve(data);
+			deferred.resolve(data.list);
 
 		}, function(err) {
 			deferred.reject(err);

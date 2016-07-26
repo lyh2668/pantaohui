@@ -21,7 +21,7 @@ angular.module("Login", [])
 	wx_openid: "wx_openid"
 })
 
-.service('AuthService', function ($http, $q, $timeout, $ionicPopup, $location, webRequest, Locals, WeixinService, WX_LOGIN_PARAMS, SERVICE_API_URL) {
+.service('AuthService', function ($http, $q, $timeout, $ionicPopup, $ionicLoading, $location, webRequest, Locals, WeixinService, WX_LOGIN_PARAMS, SERVICE_API_URL) {
 
 	var wxUserInfo = null;
 	var userInfo = null;
@@ -110,25 +110,24 @@ angular.module("Login", [])
 			password: password
 		}
 
-		var popup1 = $ionicPopup.show({
-					title: msg
-				})
+		$ionicLoading.show({
+			title: msg
+		})
 
-				$timeout(function() {
-					popup1.close();
-				}, 2500);
+		$timeout(function() {
+			$ionicLoading.hide();
+		}, 2500);
 
 		webRequest.postServiceData(SERVICE_API_URL.API_USER_LOGIN, params).then( 
 		function(data) {
 			Locals.set("pantaohui_token", data.token);
 			autoLogin().then(function(data) {
-				popup1.close();
-				var popup = $ionicPopup.show({
-					title: '登录成功'
+				$ionicLoading.show({
+					template: '登录成功'
 				})
 
 				$timeout(function() {
-					popup.close();
+					$ionicLoading.hide();
 
 					deferred.resolve(data);
 					
@@ -136,25 +135,23 @@ angular.module("Login", [])
 
 				
 			}, function(err) {
-				popup1.close();
-				var popup = $ionicPopup.show({
-					title: err.errmsg
+				$ionicLoading.show({
+					template: err.errmsg
 				})
 
 				$timeout(function() {
-					popup1.close();
+					$ionicLoading.hide();
 				}, 1500);
 
 				deferred.reject(err);
 			})
 		}, function(err) {
-			popup1.close();
-			var popup = $ionicPopup.show({
-					title: err.errmsg
+			  $ionicLoading.show({
+					template: err.errmsg
 				})
 
 				$timeout(function() {
-					popup.close();
+					$ionicLoading.hide();
 				}, 1500);
 			deferred.reject(err);
 		})
