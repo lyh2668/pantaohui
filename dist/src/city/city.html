@@ -1,0 +1,67 @@
+<html>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <ion-view view-title="城市列表">
+<!--     <ion-header-bar class="bar-positive">
+      <div class="button" ng-click="scrollBottom()">
+        Scroll Bottom
+      </div>
+    </ion-header-bar> -->
+    <ion-header-bar class="bar-light">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="search"
+               placeholder="搜索城市"
+               ng-model="search"
+               ng-focus="searchFocused = true"
+               ng-blur="searchFocused = false"
+               ng-change="citySearchChange()"
+               class="full-width">
+        <a ng-if="search.length"
+           on-touch="clearSearch()">
+           <i class="icon ion-ios-close placeholder-icon"></i>
+         </a>
+      </label>
+    </ion-header-bar>
+    <ion-content style="background: #eee" class="city_content">
+
+      <div class="hot_city_title" ng-hide="hideOthers">
+        <p>定位城市</p>
+      </div>
+
+      <div class="hot_city_bk" ng-hide="hideOthers">
+        <div class="row row-wrap">
+          <div class="col col-50">
+            <p ng-if="!locationCity">定位城市...</p>
+            <button ng-if="locationCity" class="hot_city_button" ng-click="click(locationCity)">{{ locationCity.title }}</button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="hot_city_title" ng-hide="hideOthers">
+        <p>热门城市</p>
+      </div>
+      
+      <div class="hot_city_bk" ng-hide="hideOthers">
+        <div class="row row-wrap">
+          <div class="col col-25" ng-repeat="item in hotCityList">
+          <button class="hot_city_button" ng-click="click(item)">{{ item.title }}</button>
+          </div>
+        </div>
+      </div>
+
+      <ion-list ng-if="search.length">
+        <ion-item class="my-item"
+           ng-repeat="item in getContacts() track by $id(item)"
+           item-height="getItemHeight(item)"
+           id="{{ item.id }}"
+           ng-style="{'line-height': getItemHeight(item) + 'px'}"
+           ng-class="{'item-divider': item.isLetter}"
+           ng-click="item.letter || click(item)">
+          {{ item.letter || item.title }}
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-view>
+</html>

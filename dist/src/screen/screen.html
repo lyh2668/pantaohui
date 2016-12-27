@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <!-- <link href="/src/screen/screen.css" rel="stylesheet"> -->
+  </head>
+
+  <ion-view hide-tabs="true" view-title="筛选">
+    
+
+    <ion-content has-subheader="false" has-bouncing="false" id="leftContent" >
+      <div class="col" id="meetClassContent">
+          <!-- <button class="button wizard-item" ng-repeat="item in meetClass" ng-click="clickMeetClass(item)" ng-checked="expression">{{ item.title }}</button> -->
+          <div ng-repeat="item in meetClass" class="mainClass">
+            <input type="radio" name="radio-set" ng-checked="ture" 
+                                                 ng-click="clickMeetClass(item)"
+                                                 ng-value="item.title"
+                                                 ng-model="data.first">
+            <a href="#">{{ item.title }}</a>
+          </div>
+        </div>
+    </ion-content>
+
+    <ion-content has-subheader="false" id="rightContent">
+      <div class="list">
+        <!-- <div class="item item-checkbox" ng-repeat="item in meetSubClass">
+          <label class="checkbox">
+            {{ item.title }}
+          </label>
+          <input type="checkbox">
+        </div> -->
+        <div class="item" ng-repeat="item in meetSubClass">
+          
+
+          <input type="checkbox" ng-checked="">
+          <img src="src/screen/images/checked.png"/>
+          <label class="">
+            {{ item.title }}
+          </label>
+
+
+        </div>
+      </div>
+    </ion-content>
+
+    <div class="bottomButton">
+      <button class="button button-full button-positive" ng-click="commit()">确定</button>
+    </div>
+
+<!--   	<ion-content has-subheader="false">
+  		<div class="row">
+  			<div class="col col-33" id="meetClassContent">
+  				<button class="button wizard-item" ng-repeat="item in meetClass" ng-click="clickMeetClass(item)" ng-checked="expression">{{ item.title }}</button>
+  			</div>
+  			<div class="col">
+  				<div class="list">
+  					<div class="item" ng-repeat="item in meetSubClass">{{ item.title }}</div>
+  				</div>
+  			</div>
+  		</div>
+  	</ion-content> -->
+	</ion-view>
+</html>

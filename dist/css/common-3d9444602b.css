@@ -1,0 +1,257 @@
+/* 初始化*/ 
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;} 
+ul,ol{list-style-type:none;} 
+
+a:hover{text-decoration: none;}
+
+.clearfix:after{content:"";display: block;clear:both;height: 0;overflow: hidden;visibility: hidden;}
+.clearfix{zoom:1;}
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+body{
+	background-color: #f5f5f5;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+/* 通用 */
+.w20 {width: 20%;display: block;float:left;}
+.w25 {width: 25%;display: block;float:left;}
+.w33 {width: 33.33%;display: block;float:left;}
+.w50 {width: 50%;display: block;float:left;}
+.w66 {width: 66.66%;display: block;float:left;}
+.w100 {width: 100%;display: block;float:left;}
+
+body {
+  font-size: 1em;
+}
+
+/* top */
+
+.contentBkg {
+	background: #f7f6f4;
+}
+
+.button.button-positive.button-icon {
+	font-size: 14px;
+}
+
+.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before, .bar button.button-icon .icon:before, .bar button.button-icon:before, .bar button.button-icon.icon-left:before, .bar button.button-icon.icon-right:before {
+    vertical-align: top;
+    font-size: 22px;
+    line-height: 32px;
+}
+
+.two-lines-over {
+/* 	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical; */
+
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	width:100%;
+}
+
+.tabs-color-active-pink {
+	color: #f24182;
+}
+
+
+.bar-pink {
+  border-color: transparent;
+  background-color: #f24182;
+  color: #fff; 
+}
+
+.icon-home-on {
+   margin-top: 1px;
+   background: url("../images/1.png") no-repeat center center;
+   background-size: 24px 24px;
+}
+
+.icon-home-off {
+  margin-top: 1px;
+  background: url("../images/11.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-meet-on {
+  margin-top: 1px;
+  background: url("../images/2.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-meet-off {
+  margin-top: 1px;
+  background: url("../images/22.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-news-on {
+  margin-top: 1px;
+  background: url("../images/3.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-news-off {
+  margin-top: 1px;
+  background: url("../images/33.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-mine-on {
+  margin-top: 1px;
+  background: url("../images/4.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-mine-off {
+  margin-top: 1px;
+  background: url("../images/44.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-find-on {
+  margin-top: 1px;
+  background: url("../images/5.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-find-off {
+  margin-top: 1px;
+  background: url("../images/55.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-clock {
+  background: url("../images/time.png") no-repeat;
+  background-size: 14px 14px;
+  text-indent: 18px;
+  line-height: 1em;
+  display: inline-block;
+  width:100%;
+}
+
+.icon-location {
+  background: url("../images/city.png") no-repeat;
+  background-size: 14px 14px;
+  text-indent: 16px;
+  line-height: 1em;
+  display: inline-block;
+  width:100%;
+}
+
+.ion-record:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.icon-home-on + span,
+.icon-meet-on + span,
+.icon-news-on + span,
+.icon-mine-on + span {
+  color: #f24182;
+  text-decoration:none;
+}
+
+
+.list > .item-thumbnail-left > img {
+  max-width: 104px;
+  max-height: 65px;
+  margin-top: 5px;
+  border: 1px solid #f2f2f2;
+}
+
+
+.list h2 {
+  font-size: 15px;
+}
+
+.list > .item-thumbnail-left > img ~ a,
+.list > .item-thumbnail-left > img ~ h1,
+.list > .item-thumbnail-left > img ~ h2,
+.list > .item-thumbnail-left > img ~ h3,
+.list > .item-thumbnail-left > img ~ h4,
+.list > .item-thumbnail-left > img ~ h5,
+.list > .item-thumbnail-left > img ~ h6,
+.list > .item-thumbnail-left > img ~ label,
+.list > .item-thumbnail-left > img ~ p {
+  padding-left: 20px;
+}
+
+.search_wrap {
+  height: 44px;
+  width: 100%;
+  background: #eee;
+}
+
+.search_wrap .search_content {
+  position: absolute;
+  background: white;
+  margin-top: 8px;
+  margin-left: 3%;
+  margin-right: 3%;
+  height: 28px;
+  line-height: 30px;
+  width: 94%;
+  text-align: center;
+  border-radius: .25em;
+  color: #777;
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+.search_wrap .search_content i {
+  padding: 0 20px;
+}
+
+.search_icon {
+  background: url(../images/search.png) 0 no-repeat;
+  background-size: 16px;
+  /* width: 30px; */
+}
+
+.list .item {
+    /* border-top: 1px #e5e5e5; */
+    border-color: #e5e5e5;
+}
+
+.bottom_wrap {
+    height: 50px;
+    background: transparent;
+}
+
+.bottom_wrap > span {
+    line-height: 50px;
+    color: #666;
+    font-size: .75em;
+}
+
+.bottom_wrap > a {
+    padding: 3px 15px;
+    margin-left: 5%;
+    color: #111;
+    font-size: .875em;
+    background: white;
+    border: 1px solid #f2f2f2;
+    border-radius: .5em;
+    text-decoration: none;
+    position: absolute;
+    right: 10px;
+    margin-top: 12px;
+}
+
+.wechat-img {
+  max-width: 100%;
+}

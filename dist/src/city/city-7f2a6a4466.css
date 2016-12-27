@@ -1,0 +1,54 @@
+
+
+/* .item img {
+  height: 60px;
+  width: 60px;
+  float: left;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+ */
+.my-item.item {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.full-width {
+  width: 90%;
+  margin-left: 3%;
+  color:#333;
+
+  border:none;
+  border-radius: 5px;
+  background: transparent;
+
+  /* text-indent: 10px; */
+}
+
+.hot_city_bk {
+  background: #fbfbfb;
+}
+
+.city_content .hot_city_title {
+  height: 35px;
+  line-height: 35px;
+  text-indent: 10px;
+  color: #f24182;
+  font-weight: 600;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+.hot_city_button {
+
+  border: 1px solid #f24182;
+  /* padding: 2px 25%; */
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  border-radius: .25rem;
+  color: #f24182;
+  background: white;
+  font-size: .9em;
+}

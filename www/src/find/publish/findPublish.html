@@ -1,0 +1,40 @@
+<ion-view view-title="发现－发布">
+<!-- 	<ion-header-bar align-title="center" class="find-header-bar">
+		<div class="buttons">
+  	</div>
+  	<h1 class="title">我要发布</h1>
+  	<div class="buttons">
+  	</div>
+	</ion-header-bar> -->
+
+	<ion-content has-subheader="false" class="publish-content">
+		<div class="publish-header">
+			<img ng-src="{{ user.thumb }}" class="publish-thumb">
+			<div class="publish-nickname" ng-bind="user.nickname"></div>
+		</div>
+
+		<form ng-submit="publish()" class="publish-form">
+
+			<input type="text" ng-model="data.title" 
+												 placeholder="请输入标题" 
+												 class="publish-title">
+
+			<textarea type="text" ng-model="data.content" 
+													  placeholder="客官你想写点啥～"
+													  rows="5"
+													  class="publish-detail"></textarea>
+			<div class="publish-picture-area clearfix">
+				<div class="publish-choose-picture" ng-repeat="item in addPictures track by $index" >
+					<!-- <img src="wxLocalResource://493196448053205"> -->
+					<img ng-src="{{ item }}" ng-click="previewImage(item, addPictures)">
+					<i ng-click="deleteImage(item)">x</i>
+				</div>
+				<div class="publish-choose-picture" ng-if="addPictures.length != 9" ng-click="choosePicture()">
+					<p class="publish-choose-picture-inset">＋</p>
+				</div>						  	
+			</div>
+
+			<input type="button" value="确认发布" class="publish-apply button button-positive" ng-click="confirm()">
+		</form>
+	</ion-content>
+</ion-view>

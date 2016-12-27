@@ -1,0 +1,30 @@
+.platform-ios .popover {
+	border-radius: 3px;
+	width: 28%;
+	/* left: 30%; */
+}
+
+.popMore {
+	left: 30%;
+	width: 28%;
+	height: 66px;
+	border-radius: 3px;
+	padding-top: 0;
+}
+
+.popMore .item {
+	padding: 5px;
+	text-align: left;
+	text-indent: 10px;
+	font-size: 14px;
+	magin-top: 0;
+}
+
+.platform-ios .popover .scroll-content {
+	border-radius: 0;
+	margin: 2px 0;
+}
+
+/* .platform-ios .popover-arrow {
+	font-size: 70%;
+} */

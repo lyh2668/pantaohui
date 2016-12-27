@@ -1,0 +1,29 @@
+<ion-view view-title="发现－消息">
+	<ion-header-bar align-title="center" class="find-header-bar">
+		<div class="buttons">
+  	</div>
+  	<h1 class="title">消息</h1>
+  	<div class="buttons">
+  		<!-- <div class="button button-clear">清空</div> -->
+  	</div>
+	</ion-header-bar>
+
+	<ion-content has-subheader="false" class="find-message-content">
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+		<div class="list">
+			<div class="item" ng-repeat="item in findMessageList">
+				<img class="avatar clearfix" src="item.avatar">
+				<p class="title" ng-bind="item.title"></p>
+				<!-- <p ng-bind="item.createtime"></p> -->
+				<p class="content" ng-bind-html="item.content"></p>
+			</div>
+		</div>
+
+		<ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+	</ion-content>
+</ion-view>

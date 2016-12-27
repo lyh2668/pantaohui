@@ -1,0 +1,40 @@
+<ion-view view-title="发现">
+	<ion-header-bar align-title="center" class="find-header-bar">
+		<div class="buttons">
+    	<div class="message-btn" ng-click="toMessage()"></div>
+  	</div>
+  	<h1 class="title">会友圈</h1>
+  	<div class="buttons">
+    	<div class="publish-btn" ng-click="toPublish()"></div>
+  	</div>
+	</ion-header-bar>
+
+	<ion-content has-subheader="false" class="find-content">
+
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+		<div class="card publisher" ng-repeat="item in findList" ng-click="toDetail(item.id)">
+			<div class="thumb-header clearfix">
+				<img class="thumb" src="{{ item.avatar }}">
+				<div class="thumb-rightside">
+					<label class="nickname" ng-bind="item.uname"></label>
+					<p class="updatetime" ng-bind="item.createtime"></p>
+				</div>
+				<!-- <div ng-if='item.istop == "1"' class="istop">顶</div> -->
+				<div class="header-rightside" ng-bind="item.counts"></div>
+			</div>
+			<div class="content">
+				<p class="title" ng-bind="item.title"></p>
+				<p class="subtitle" ng-bind="item.content"></p>
+			</div>
+		</div>
+
+		<div class="show-more" ng-show="!more" ng-click="goTop()">没有更多了...</div>
+
+		<ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+	</ion-content>
+</ion-view>

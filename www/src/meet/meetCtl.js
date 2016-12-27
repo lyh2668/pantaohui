@@ -161,6 +161,7 @@ angular.module('Meet', [])
 		meetService.refreshMeetList(params).then( function(datas) {
 			$ionicScrollDelegate.$getByHandle("contentScroll").scrollTop();
 			$scope.jsonDatas = datas;
+			$scope.firstStateChange = false;
 			if(!datas || datas.length < meetService.perPage) {
 				$scope.more = false;
 			}
@@ -249,19 +250,28 @@ angular.module('Meet', [])
 
 	var cityObj = {}
 	$scope.city = ""
+	$scope.firstStateChange = true;
 	$scope.getCityName = function() {
-		if (cityObj = Locals.getObject("cityObj")) {
-			// 如果城市没改变则不刷新页面
-			if(cityObj.title == $scope.city) {
-				return;
-			}
-			$scope.city = cityObj.title;
-			params.meet_cityid = cityObj.cityid;
-		}
-
 		if($scope.city == "") {
 			$scope.city = "全国"
 			params.meet_cityid = 0;
+			
+		}
+
+		if (cityObj = Locals.getObject("cityObj")) {
+			// 如果城市没改变则不刷新页面
+			if(cityObj.title == $scope.city && !$scope.firstStateChange) {
+				return ;
+			}
+			$scope.city = cityObj.title;
+			params.meet_cityid = cityObj.cityid;
+		} else {
+			var cityTmp = {
+      	cityid: 0,
+      	id: 0,
+      	title: "全国"
+    	}
+    	Locals.setObject("cityObj", cityTmp);
 		}
 
 		refreshMeetList(params);
@@ -272,5 +282,3 @@ angular.module('Meet', [])
 	$scope.animation = 'slide-in-up';
 
 })
-
-

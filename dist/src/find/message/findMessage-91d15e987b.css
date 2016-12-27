@@ -1,0 +1,28 @@
+.find-message-content {
+
+}
+
+.find-message-content .list {
+
+}
+
+.find-message-content .item {
+
+}
+
+.find-message-content .avatar {
+	max-width: 50px;
+	max-height: 50px;
+	float: left;
+}
+
+.find-message-content .title {
+	margin-left: 65px;
+	font-weight: 500;
+	color: #333;
+}
+
+.find-message-content .content {
+	margin-left: 65px;
+	white-space: normal;
+}

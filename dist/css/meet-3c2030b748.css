@@ -1,0 +1,59 @@
+.btn-default {
+	background-color: #f5f5f5 !important;
+	border-width: 0 1px 0 0;
+	border-style: solid;
+	border-color: #ccc;
+}
+.media {
+	padding:10px 20px;
+	background-color: #fff;
+	margin-top: 5px !important;
+	position: relative;
+}
+.media-body {
+	position: relative;
+}
+.media h4 {
+	color: #333;
+	line-height: 40px;
+}
+.media p {
+	color:#333;
+}
+.free-hot {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}
+.free-hot i {
+	display: inline-block;
+	width: 25px;
+	height:25px;
+	line-height: 23px;
+	text-align: center;
+	font-style: normal;
+	border:1px solid;
+	border-radius: 2px;
+}
+.free-hot .hot {
+	color: #ee5b15;
+	border-color: #ee5b15;
+}
+.free-hot .free {
+	color: #00a7e6;
+	border-color: #00a7e6;
+}
+.screen .btn-group {
+	width:100%;
+}
+.screen .btn-group button {
+	width:100%;
+	border-radius: 0px;
+	background-color: none !important;
+}
+
+
+
+
+
+

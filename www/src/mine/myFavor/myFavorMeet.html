@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <title>我收藏的</title>
+</head>
+
+<ion-view view-title="我收藏的">
+	<ion-content class="myfavor-content">
+
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    
+		<ion-list class="list meetList">
+			<ion-item class="item item-text-wrap" ng-click="toMeetDetail(data)" ng-repeat="data in jsonDatas">
+				<h2>
+					{{ data.title }}
+				</h2>
+				<p class="icon-clock">
+    			{{ data.start_time }}
+    		</p>
+    		<p class="icon-location">
+    			{{ data.site }}
+    		</p>
+    		<ion-option-button class="button-assertive" ng-click="cancelFavor(data)">取消收藏</ion-option-button>
+			</ion-item>
+		</ion-list>
+
+    <ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+
+	</ion-content>
+</ion-view>
+</html>

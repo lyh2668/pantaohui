@@ -1,0 +1,81 @@
+.myapply-content .card {
+	margin: 10px 10px;
+	white-space: normal;
+	padding: 0;
+}
+
+.myapply-content .meet-part {
+	position: relative;
+	padding: 5px 5px;
+	border-bottom: 1px dashed #ddd;
+}
+
+.myapply-content .meet-part > .title {
+	font-size: 1em;
+	font-weight: 700;
+	padding-right: 60px;
+}
+
+.myapply-content .meet-part > .start-time {
+	font-size: .75em;
+	color: #444;
+	padding-right: 70px;
+}
+
+.myapply-content .meet-part > .place {
+	font-size: .75em;
+	color: #444;
+	padding-right: 70px;
+}
+
+.myapply-content .meet-part > .goto-pay {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+.myapply-content .meet-part > .has-pay {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	border-radius: 3px;
+  border: 1px solid green;
+  padding: 3px 6px;
+  color: green;
+}
+
+.myapply-content .ticket-part {
+	padding: 5px 5px;
+}
+
+.myapply-content .ticket-part .ticket-owner-title {
+	color: #111;
+	font-size: .875em;
+	font-weight: 600;
+	float: left;
+}
+
+.myapply-content .ticket-part .ticket-owner {
+	padding-left: 60px;
+}
+
+.myapply-content .ticket-part .ticket-type {
+	font-size: .875em;
+}
+
+.myapply-content .ticket-part .ticket-price {
+	font-size: .875em;
+}
+
+.myapply-content .ticket-part .ticket-price > .ticket-price-number {
+	color: red;
+}
+
+.myapply-content .ticket-part .ticket-price > .ticket-price-number:before {
+	content: "¥";
+	padding: 2px;
+}
+
+.myapply-content .ticket-part .ticket-number {
+	font-size: .875em;
+}

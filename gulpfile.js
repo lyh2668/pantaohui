@@ -7,6 +7,53 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 
+var rev = require('gulp-rev');
+
+gulp.task('css', function() {
+  return gulp.src(['www/**/*.css', '!www/lib/**/*.css'])
+    .pipe(rev())
+    .pipe(gulp.dest('dist'))
+    .pipe(rev.manifest({merge: true}))
+    .pipe(gulp.dest('rev/css'));
+});
+
+gulp.task('scripts', function() {
+  return gulp.src(['www/**/js/*.js', '!www/lib/**/*.js', 'www/**/src/**/*.js'])
+    .pipe(rev())
+    .pipe(gulp.dest('dist'))
+    .pipe(rev.manifest({merge: true}))
+    .pipe(gulp.dest('rev/js'));
+});
+
+gulp.task('move', function() {
+  return gulp.src(['www/**/src/**/*.html'])
+    .pipe(gulp.dest('dist'))
+});
+
+var revCollector = require('gulp-rev-collector');
+var minifyHTML = require('gulp-minify-html');
+
+gulp.task('rev', ['css', 'scripts', 'move'], function() {
+  return gulp.src(['rev/**/*.json', 'www/index.html'])
+    .pipe(revCollector({
+
+    }))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('rev2', ['rev'], function() {
+  return gulp.src(['rev/**/*.json', 'www/js/routes.js'])
+    .pipe(revCollector())
+    .pipe(gulp.dest('dist'));
+});
+
+var clean = require('gulp-clean');
+
+gulp.task('clean', function() {
+  return gulp.src(['dist', 'rev'], {read: false})
+    .pipe(clean());
+});
+
 var paths = {
   sass: ['./scss/**/*.scss']
 };

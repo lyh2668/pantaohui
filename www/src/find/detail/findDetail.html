@@ -1,0 +1,72 @@
+<ion-view view-title="发现－详情">
+	<!-- <ion-header-bar align-title="center" class="find-header-bar">
+		<div class="buttons">
+  	</div>
+  	<h1 class="title">消息</h1>
+  	<div class="buttons">
+  	</div>
+	</ion-header-bar> -->
+
+	<ion-content has-subheader="false" class="find-detail-content padding" ng-click='replyOthers($event, "楼主", 0, "")'>
+
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+		<p class="title" ng-bind="findDetail.title"></p>
+		<div class="publisher" ng-click="">
+			<div class="thumb-header clearfix">
+				<img class="thumb" src="{{ findDetail.avatar }}">
+				<div class="thumb-rightside">
+					<label class="nickname" ng-bind="findDetail.nickname"></label>
+					<label class="label">楼主</label>
+					<p class="updatetime" ng-bind="findDetail.createtime"></p>
+				</div>
+				<div class="header-rightside" ng-bind="findDetail.comments"></div>
+			</div>
+			<div class="content">
+				<p class="detail-content" ng-bind-html="findDetail.content | trustHtml"></p>
+			</div>
+		</div>
+
+		<div class="item reply" ng-repeat="item in replyList track by $index">
+			<div class="cmtlist" ng-click="replyOthers($event, item.uname, item.id, $index + 1)" id="reply-others">
+				<div class="thumb-header clearfix">
+					<img class="thumb" src="{{ item.avatar }}">
+					<div class="thumb-rightside">
+						<label class="nickname" ng-bind="item.uname"></label>
+						<label class="label" ng-if="item.uid == findDetail.uid">楼主</label>
+						<p class="updatetime" ng-bind="item.createtime"></p>
+					</div>
+					<div class="reply-header-rightside">#{{ $index + 1 }}</div>
+				</div>
+			</div>
+				<!-- <div class="header-rightside">{{ item.id }}楼</div> -->
+			<div class="content">
+				<p class="subtitle" ng-bind-html="item.content | trustHtml"></p>
+				<div class="chlist" ng-if="item.chlist">
+					<div ng-repeat="chitem in item.chlist" class="clearfix">
+						<p class="chlist-uname">{{ chitem.uname }}:</p>
+						<p ng-bind-html="chitem.content | trustHtml"></p>
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div class="chlist" ng-if='item["chlist"]'> -->
+			
+		</div>
+
+		<ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+
+	</ion-content>
+
+	<ion-footer-bar aligin-title="right" keyboard-attach class="reply-bottom">
+		<input type="text" id="reply-input" class="reply-input" 
+											 placeholder="{{ replyPlaceholder }}" 
+											 ng-model="replyMessage.message" 
+											 ng-blur="replySetBlur()" set-focus="replyBlur">
+		<input type="button" class="reply-btn" value="回复" ng-click="reply()" ng-disabled="inReply">
+	</ion-footer-bar>
+</ion-view>

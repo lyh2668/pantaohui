@@ -11,17 +11,17 @@
 
 			<div class="grid__container">
 
-				<form name="userForm" action="" method="post" class="form form--login">
+				<form name="userForm" action="" method="post" class="form form--login" ng-submit="keyboardHide()">
 
 					<div class="form__field">
-						<label class="icon ion-android-person form__icon" for="login__username">
+						<label class="icon icon-username form__icon" for="login__username">
 							<span class="hidden">Username</span>
 						</label>
 						<input id="login__username" name="username" type="text" class="form__input" ng-model="loginData.username" placeholder="用户名" required>
 					</div>
 
 					<div class="form__field">
-						<label class="icon ion-android-lock form__icon" for="login__password">
+						<label class="icon icon-password form__icon" for="login__password">
 							<span class="hidden">Password</span>
 						</label>
 						<input id="login__password" type="password" class="form__input" ng-model="loginData.password" placeholder="密码" required></div>
@@ -34,7 +34,7 @@
 
 				<p class="text--center">
 					没有用户名?
-					<a href="#/tab/login/register">点击注册</a>
+					<a ui-sref="register()">点击注册</a>
 					<span class="fontawesome-arrow-right"></span>
 				</p>
 

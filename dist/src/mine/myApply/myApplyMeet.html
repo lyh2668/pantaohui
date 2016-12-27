@@ -1,0 +1,64 @@
+<html>
+
+<head>
+  <title>我报名的</title>
+</head>
+
+<ion-view view-title="我报名的" ng-init="init()">
+	<ion-content class="myapply-content">
+
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    
+		<div class="meetList">
+			<a class="card item" ng-click="toMeetDetail(data.meetinfo)" ng-repeat="data in jsonDatas">
+				<div class="meet-part">
+					<div class="title" ng-bind="data.meetinfo.title"></div>
+					<div class="place">
+						<span>会议地点: </span>
+						<span ng-bind="data.meetinfo.site"></span>
+					</div>
+					<div class="start-time">
+						<span>会议时间: </span>
+						<span ng-bind="data.meetinfo.start_time"></span>
+					</div>
+					<div ng-if="data.orderinfo.status == 2" class="goto-pay button button-small button-assertive" ng-click="toOrder(data.orderinfo.id)">前往付款</div>
+					<label ng-if="data.orderinfo.status == 1" class="has-pay">已付款</label>
+				</div>
+			
+				<div class="ticket-part">
+					<p class="ticket-owner-title">参加者:</p>
+					<div class="ticket-owner">
+						<p ng-bind="data.username"></p>
+						<p ng-bind="data.mobile"></p>
+						<p ng-if="data.email" ng-bind="data.email"></p>
+					</div>
+					
+					<div ng-if="data.orderinfo">
+						<div class="ticket-type">
+							<span>票类型:</span>
+							<span ng-bind="data.orderinfo.title"></span>
+						</div>
+	
+						<div class="ticket-price">
+							<span>票价:</span>
+							<span class="ticket-price-number" ng-bind="data.orderinfo.price"></span>
+						</div>
+	
+						<div ng-if="data.number" class="ticket-number">
+							<span>票码:</span>
+							<span ng-bind="data.number"></span>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+    <ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+
+	</ion-content>
+</ion-view>
+</html>

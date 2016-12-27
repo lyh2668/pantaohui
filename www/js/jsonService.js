@@ -27,6 +27,7 @@ angular.module('JsonServices', [])
 	API_MEET_DETAIL: 'http://www.51banhui.com/api/meet/meet_detail',
 	API_MEET_ENROLL: 'http://www.51banhui.com/api/meet/enroll',
 	API_MEET_FAVOR: 'http://www.51banhui.com/api/meet/interest',
+	API_MEET_ENROLL_PAY: 'http://www.51banhui.com/api/meet/enroll_pay',
 
 	API_CITY_HOT: 'http://www.51banhui.com/api/city/get_hot_city',
 	API_CITY_LIST: 'http://www.51banhui.com/api/city/get_city',
@@ -34,6 +35,12 @@ angular.module('JsonServices', [])
 	API_NEWS_HOT: 'http://www.51banhui.com/api/news/news_hot',
 	API_NEWS_LIST: 'http://www.51banhui.com/api/news/news_list',
 	API_NEWS_DETAIL: 'http://www.51banhui.com/api/news/news_detail',
+
+	API_FIND_LIST: 'http://www.51banhui.com/api/quan/find_list',
+	API_FIND_DETAIL: 'http://www.51banhui.com/api/quan/find_detail',
+	API_FIND_REPLY: 'http://www.51banhui.com/api/quan/comment',
+	API_FIND_PUBLISH: 'http://www.51banhui.com/api/quan/publish',
+	API_FIND_MESSAGE: 'http://www.51banhui.com/api/quan/message',
 
 	// params: type: 0 表示注册, 1 表示绑定
 	API_USER_REGISTER_GET_CODE : 'http://www.51banhui.com/api/user/get_mobile_code',
@@ -49,7 +56,11 @@ angular.module('JsonServices', [])
 	API_USER_CHECK_MEMBER: 'http://www.51banhui.com/api/user/is_member',
 	API_USER_BIND_MEMBER: 'http://www.51banhui.com/api/user/member_bind',
 
-	API_COMMON_THUMB_TO_SRC: 'http://www.51banhui.com/api/news/thumbnum2src'
+	API_COMMON_THUMB_TO_SRC: 'http://www.51banhui.com/api/news/thumbnum2src',
+
+	API_WECHAT_PAY: 'http://www.51banhui.com/api/wechat/pay',
+	API_MINE_ORDER: 'http://www.51banhui.com/api/center/my_order',
+	API_MINE_APPLY: 'http://www.51banhui.com/api/center/my_enroll'
 })
 
 .service('readJsonService', function($http, $q, JSON_LOCAL_FILES) {
@@ -76,6 +87,7 @@ angular.module('JsonServices', [])
 	var getServiceData = function(SERVICE_API_URL, params) {
 		var deferred = $q.defer();
 
+
 		$http({method: 'GET', url: SERVICE_API_URL, params: params}).success( function(data) {
 			console.log(data);
 			deferred.resolve(data);
@@ -98,6 +110,8 @@ angular.module('JsonServices', [])
 				callback: "JSON_CALLBACK"
 			}
 		}
+
+		console.log("url: ", url, "params: ", params);
 
 		$http.jsonp(url, {params: params}).success( function(data) {
 			if(data && 'errcode' in data) {
@@ -190,4 +204,68 @@ angular.module('JsonServices', [])
 	return {
 		thumbToSrc: thumbToSrc
 	}
+})
+
+.service('meetRequestService', function($q, webRequest, SERVICE_API_URL, $rootScope, commonRequest) {
+	var perPage = 15;
+
+	var meetList = [];
+
+	var meetParams = {};
+
+	var loadmore = function(params) {
+  	var deferred = $q.defer();
+
+  	meetParams = params;
+
+  	// if(meetList.length > 0) {
+  	// 	meetParams.id = meetList[meetList.length - 1].id;
+  	// } else {
+  	// 	meetParams.id = 0;
+  	// }
+
+  	webRequest.getServiceDataWithJsonp(SERVICE_API_URL.API_MEET_LIST, meetParams).then( function(data) {
+  		if("list" in data && data.list != null) {
+  			meetList = data.list;
+  		} else {
+  			meetList = [];
+  		}
+  		
+  		deferred.resolve(meetList);
+  	}, function(err) {
+  		deferred.reject(err);
+  	})
+
+  	return deferred.promise;
+  }
+
+  var refresh = function(params) {
+  	var deferred = $q.defer();
+
+  	meetParams = params;
+  	meetParams.id = 0;
+
+  	loadmore(meetParams).then(function(data) {
+  		deferred.resolve(data);
+  	}, function(err) {
+  		deferred.reject(err);
+  	})
+
+  	return deferred.promise;
+  }
+
+  this.thumbToSrc = function(startIndex, list, width) {
+ 		for (var index = startIndex; index < list.length; ++index) {
+			if("thumb" in list[index]) {
+				commonRequest.thumbToSrc(index, list[index].thumb, width, "jsonp").then(function(data) {
+					list[data.id].thumb = data.thumb;
+				})
+			}
+		}
+ 	}
+
+  return {
+  	loadmore: loadmore,
+  	refresh: refresh
+  }
 })

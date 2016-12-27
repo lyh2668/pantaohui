@@ -4,7 +4,8 @@ ul,ol{list-style-type:none;}
 
 a:hover{text-decoration: none;}
 
-.clear{clear:both; height: 0; line-height: 0; font-size: 0}
+.clearfix:after{content:"";display: block;clear:both;height: 0;overflow: hidden;visibility: hidden;}
+.clearfix{zoom:1;}
 
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -13,6 +14,9 @@ a:hover{text-decoration: none;}
 }
 body{
 	background-color: #f5f5f5;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 /* 通用 */
 .w20 {width: 20%;display: block;float:left;}
@@ -115,6 +119,46 @@ body {
   background-size: 24px 24px;
 }
 
+.icon-find-on {
+  margin-top: 1px;
+  background: url("../images/5.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-find-off {
+  margin-top: 1px;
+  background: url("../images/55.png") no-repeat center center;
+  background-size: 24px 24px;
+}
+
+.icon-clock:before {
+  content: "";
+  background: url("../images/time.png") center no-repeat;
+  background-size: 13px 13px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+}
+
+.icon-location:before {
+  content: "";
+  background: url("../images/city.png") center no-repeat;
+  background-size: 14px 14px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 3px;
+}
+
+.ion-record:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
 .icon-home-on + span,
 .icon-meet-on + span,
 .icon-news-on + span,
@@ -208,4 +252,8 @@ body {
     position: absolute;
     right: 10px;
     margin-top: 12px;
+}
+
+.wechat-img {
+  max-width: 100%;
 }

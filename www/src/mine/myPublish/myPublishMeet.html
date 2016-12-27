@@ -1,0 +1,34 @@
+<html>
+
+<head>
+  <title>我发布的</title>
+</head>
+
+<ion-view view-title="我发布的">
+	<ion-content class="">
+
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    
+		<div class="list meetList">
+			<a class="item item-text-wrap" ng-click="toMeetDetail(data)" ng-repeat="data in jsonDatas">
+				<h2>
+					{{ data.title }}
+				</h2>
+				<p class="icon-clock">
+    			{{ data.start_time }}
+    		</p>
+    		<p class="icon-location">
+    			{{ data.site }}
+    		</p>
+			</a>
+		</div>
+
+    <ion-infinite-scroll ng-if="more"
+                         icon="ion-loading-c"
+                         on-infinite="loadMoreData()"
+                         distance="10%">
+    </ion-infinite-scroll>
+
+	</ion-content>
+</ion-view>
+</html>

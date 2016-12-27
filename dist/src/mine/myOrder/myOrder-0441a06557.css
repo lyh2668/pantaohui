@@ -1,0 +1,67 @@
+.myorder-content .card {
+	margin: 5px 10px;
+	padding: 0;
+	font-size: .875em;
+}
+
+.myorder-content .order-part-title {
+	color: #333;
+	font-weight: 500;
+	padding: 2px;
+	border-bottom: 1px dashed #eee;
+}
+
+.myorder-content .order-part-title:before {
+	content: "★";
+}
+
+.myorder-content .wechat-pay {
+	padding: 10px;
+	display: block;
+	height: 70px;
+}
+
+.myorder-content .wechat-pay:before {
+	content: "";
+	background: url("../images/wechat_pay.png");
+	background-size: 100%;
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	position: absolute;
+}
+
+.wechat-pay-desc {
+	padding-left: 60px;
+}
+
+.myorder-content .button-full {
+	margin: 10px;
+	border-radius: 5px;
+}
+
+.myorder-content .order-bind-title {
+	float: left;
+	font-weight: 500;
+}
+
+.myorder-content .order-bind-txt {
+	padding-left: 65px;
+	white-space: normal;
+}
+
+.myorder-content .order-price {
+	color: red;
+}
+
+.myorder-content .order-price:before {
+	content: "¥";
+}
+
+.myorder-content .meet-part {
+  padding: 5px 10px;
+}
+
+.myorder-content .ticket-part {
+  padding: 5px 10px;
+}

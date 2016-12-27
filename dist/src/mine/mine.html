@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<ion-view view-title="我的">
+
+	<ion-content class="contentBkg" scrollbar-y="false">
+
+		<div class="userHeaderBkg" ng-click="toLoginView()" ng-value="isLogin()">
+			<div class="headerThumb" >
+				<img ng-src="{{ data.thumb }}">
+			</div>
+			<!-- <i class="headerThumb" ng-click="wechatLogin()"></i> -->
+			<div class="descrp" ng-show="!isLogin()">
+				<div class="login">点击登录</div>
+				<div class="sub">让办会更简单</div>
+			</div>
+			<div class="descrp" ng-show="isLogin()">
+				<div class="login">{{ data.nickname }}</div>
+				<div class="sub">{{ data.city }}</div>
+			</div>
+		</div>
+
+		<div class="list">
+			<div class="item item-icon-left" ng-click="toMyApplyMeet()">
+				<i class="icon icon-myApply"></i>
+				我报名的
+			</div>
+			<div class="item item-icon-left" ng-click="toMyPublishMeet()">
+				<i class="icon icon-myPublish"></i>
+				我发布的
+			</div>
+			<div class="item item-icon-left" ng-click="toMyFavorMeet()">
+				<i class="icon icon-myHover"></i>
+				我收藏的
+			</div>
+		</div>
+
+		
+		<div class="list">
+			<div class="item item-icon-left" ui-sref="tabs.about()">
+				<i class="icon ion-about"></i>
+				关于我们
+			</div>
+		</div>
+
+		<!-- <div class="list">
+			<div class="item item-icon-left">
+				<i class="icon ion-ios-chatboxes-outline icon-color"></i>
+				产品反馈
+			</div>
+			<div class="item item-icon-left">
+				<i class="icon ion-ios-gear-outline icon-color"></i>
+				设置
+			</div>
+		</div> -->
+	</ion-content>
+</ion-view>
+</html>

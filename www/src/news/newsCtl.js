@@ -1,6 +1,6 @@
 angular.module('News', [])
 
-.controller('NewsCtl', function($scope, $ionicSlideBoxDelegate, $timeout, newsService, commonRequest, $ionicScrollDelegate) {
+.controller('NewsCtl', function($scope, $ionicSlideBoxDelegate, $timeout, newsService, commonRequest, $ionicScrollDelegate, $state, $stateParams) {
 
 	console.log(document.body.clientHeight)
 
@@ -118,6 +118,7 @@ angular.module('News', [])
 
   // Called each time the slide changes
   $scope.slideChanged = function(index) {
+
     $scope.slideIndex = index;
     console.log("slide Change");
     
@@ -149,6 +150,10 @@ angular.module('News', [])
 				})
 			}
 		}
+ 	}
+
+ 	$scope.toNewsDetail = function(id) {
+ 		$state.go('tabs.news-detail', { id: id });
  	}
 
  	refresh(2);

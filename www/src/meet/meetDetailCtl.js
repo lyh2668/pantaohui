@@ -6,20 +6,30 @@ angular.module('Meet', [])
 	$scope.url = $location.path();
 
 	$scope.loaded = false;
-  $ionicLoading.show({
-    template: '加载中...',
-  });
+
+	$scope.ticketCost = "免费";
+
+  var meetListItem = meetService.getMeetListItem($stateParams.id);
+  $scope.meetDetailData = meetListItem;
+  console.log("meetListItem: ", meetListItem);
 
 	meetService.getMeetDetail($stateParams.id, meetService.getUid()).then( function(data) {
 		console.log("getMeetDetail: id=", $stateParams.id, "uid=", meetService.getUid())
 		$scope.meetDetailData = data;
 		
+		if(data.MeetTicket) {
+			if(data.MeetTicket.length > 1) {
+				$scope.ticketCost = data.MeetTicket[0].price + "元起";
+			} else {
+				$scope.ticketCost = data.MeetTicket[0].price + "元";
+			}
+		}
+
 		$scope.loaded = true;
-		$ionicLoading.hide();
 
 		commonRequest.thumbToSrc(0, $scope.meetDetailData.thumb, 560, "jsonp").then(function(data) {
 			$scope.meetDetailData.thumb = data.thumb;
-			WxShare.wxShare($scope.meetDetailData.title, "蟠桃会－免费会议策划与营销专家", 
+			WxShare.share($scope.meetDetailData.title, "蟠桃会－免费会议策划与营销专家", 
 				"http://" + $location.host() + $scope.meetDetailData.thumb, $location.absUrl());
 		})
 
@@ -45,7 +55,7 @@ angular.module('Meet', [])
 		var options = {
         index: 0,
         shareEl: false,
-        // tapToClose: true  
+        tapToClose: true  
     };
 
     function imgOnload(img, index) {
@@ -58,7 +68,8 @@ angular.module('Meet', [])
 						w: img.naturalWidth,
 						h: img.naturalHeight
 					}
-					items.push(item);
+					// items.push(item);
+					items[index] = item;
 	
 					angular.element(img).bind("click", bindImg(index));
 				}
@@ -131,6 +142,10 @@ angular.module('Meet', [])
 		$state.go("tabs.home");
 	}
 
+	$scope.toRelateMeet = function(id) {
+ 		$state.go("tabs.meet-detail", {id: id});
+	}
+
 	/***************************
 	/ 报名相关
 	/****************************/
@@ -144,13 +159,21 @@ angular.module('Meet', [])
     // $ionicBackdrop.retain();
   });
 
+  $ionicModal.fromTemplateUrl('meetTicket.html', {
+  	scope: $scope,
+  	animation: 'slide-in-up',
+  	backdropClickToClose: false
+  }).then(function(modal) {
+  	$scope.ticketModel = modal;
+  })
+
 	$scope.meetLoginData = {
 		username: "",
 		password: ""
 	}
 
 	var meetLogin = function() {
-		var myPopup = $ionicPopup.show({
+		$scope.myPopup = $ionicPopup.show({
      	templateUrl: 'meetLogin.html',
       scope: $scope
     });
@@ -166,19 +189,27 @@ angular.module('Meet', [])
 			}
 
 			meetService.login($scope.meetLoginData.username, $scope.meetLoginData.password).then(function(data) {
-				myPopup.close();
+				$scope.myPopup.close();
 
 				$stateParams.uid = data.userinfo.uid;
 			})
 		}
 
     $scope.cancelLogin = function() {
-			myPopup.close();
+			$scope.myPopup.close();
+		}
+
+		$scope.wechatLogin = function() {
+			var url = $location.absUrl();
+			url = window.location.href;
+			console.log(url);
+			$scope.myPopup.close();
+			meetService.wechatLogin(url);
 		}
 	}
 
 	// 根据 uid 和 会议id 生成key
-	var key = "SaveApplyDataKey_" + meetService.getUid() + $stateParams.id;
+	var key = "SaveApplyDataKey_" + $stateParams.id;
   var saveApplyData = function(key) {
   	console.log("saveApplyData key:", key);
   	Locals.setObject(key, $scope.applyData);
@@ -210,44 +241,67 @@ angular.module('Meet', [])
 		Locals.setObject(key, $scope.applyData);
 	}
 
+	$scope.ticketChecked = [];
+
+	$scope.chooseTicket = function(index) {
+
+		$scope.ticketIndex = index;
+		$scope.currentTicket = $scope.meetDetailData.MeetTicket[index];
+		console.log($scope.ticketIndex);
+
+		for(index in $scope.meetDetailData.MeetTicket){
+			if($scope.ticketIndex == index) {
+				$scope.ticketChecked[index] = true;
+			} else {
+				$scope.ticketChecked[index] = false;
+			}
+		}
+		
+	}
+
 	$scope.openModal = function() {
 		// if (!meetService.isLogin()) {
 		// 	meetLogin();
 		// }
 		// else if (meetService.isMember()) {
 		// 	clearApplyData();
+		
+			if (!meetService.isLogin()) {
+				meetLogin();
+				return;
+			}
+
 			getApplyData(key);
-    	$scope.modal.show()
+			
+			$scope.modalTitle = "报名";
+			if($scope.meetDetailData.MeetTicket) {
+				$scope.showTicket = true;
+			} else {
+				$scope.showTicket = false;
+			}
+			$scope.modal.show();
     // } else {
     // 	bindTel();
     // }
   };
 
   $scope.closeApply = function() {
-
   	saveApplyData(key);
-    $scope.modal.hide();
+ 		$scope.modal.hide();  	
 	}
 
-	$scope.submitApplyBtn = true;
-	$scope.apply = function() {
+	$scope.$on('$destroy', function() {
 
-		if(!$scope.applyData.username) {
-			meetService.showInvalidMsg("姓名不能为空");
-			return;
+		if($scope.modal) {
+			$scope.modal.remove();
 		}
 
-		if(!$scope.applyData.mobile) {
-			meetService.showInvalidMsg("手机号码格式不正确");
-			return;
-		}
+    if($scope.myPopup) {
+    	$scope.myPopup.close();
+    }
+  });
 
-		var reg = /^0?1[3|4|5|8][0-9]\d{8}$/
-		if(!reg.test($scope.applyData.mobile)) {
-			meetService.showInvalidMsg("请输入正确的手机号码");
-			return;
-		}
-
+	var meetAppy = function() {
 		$scope.submitApplyBtn = false;
 		var params = {
 			meet_id: $scope.meetDetailData.id,
@@ -288,14 +342,108 @@ angular.module('Meet', [])
 		});
 	}
 
+	var meetApplyPay = function() {
+
+		$scope.submitApplyBtn = false;
+		var params = {
+			meet_id: $scope.meetDetailData.id,
+			uid: meetService.getUid(),
+			username: $scope.applyData.username,
+			mobile: $scope.applyData.mobile,
+			email: $scope.applyData.email,
+			company: $scope.applyData.company,
+			position: $scope.applyData.position,
+			ticket: $scope.currentTicket.id,
+			typeticket: 0,
+			top: "",
+			address: "",
+		}
+
+		console.log("apply params: ", params);
+
+		meetService.meetApplyPay(params).then( function(data) {
+			clearApplyData(key);
+			var popup = $ionicPopup.show({
+				title: '<p style="text-align: center">报名成功，生成订单中...</p>'
+			})
+
+			$scope.modal.hide();
+
+			$timeout(function() {
+				$scope.submitApplyBtn = true;
+				popup.close();
+				
+				$state.go("order", {id: data.data.mtp_id});
+				// meetService.wxPay(data.data.mtp_id);
+
+			}, 1000);
+
+			
+		}, function(err) {
+			var popup = $ionicPopup.show({
+				title: '<p style="text-align: center">报名失败！（' + err.errmsg + '）</p>'
+			})
+			$timeout(function() {
+				popup.close();
+			}, 1000);
+
+			$scope.submitApplyBtn = true;
+		});
+	}
+
+	$scope.submitApplyBtn = true;
+	$scope.apply = function() {
+
+		if(!$scope.applyData.username) {
+			meetService.showMsg("姓名不能为空");
+			return;
+		}
+
+		if(!$scope.applyData.mobile) {
+			meetService.showMsg("手机号码格式不正确");
+			return;
+		}
+
+		var reg = /^0?1[3|4|5|8][0-9]\d{8}$/
+		if(!reg.test($scope.applyData.mobile)) {
+			meetService.showMsg("请输入正确的手机号码");
+			return;
+		}
+
+		if(!$scope.applyData.company) {
+			meetService.showMsg("单位不能为空");
+			return;
+		}
+
+		if($scope.showTicket) {
+			if(!$scope.currentTicket) {
+				meetService.showMsg("请选择一个票种");
+				return;
+			}
+			console.log($scope.currentTicket);
+			meetApplyPay();
+		} else {
+			meetApply();
+		}
+		
+	}
+
+	$scope.closeTicket = function() {
+		$scope.ticketModel.hide();
+	}
+
 	var favor = false;
 	$scope.isFavored = function() {
-		return favor;
+		// 已登入则返回收藏状态，否则返回未收藏状态
+		if(meetService.isLogin()) {
+			return favor
+		}
+		return false;
 	}
 
 	$scope.clickFavor = function() {
 		if (!meetService.isLogin()) {
-			meetLogin()
+			meetLogin();
 		} else if (meetService.isMember()) {
 
 			var params = {
@@ -306,15 +454,18 @@ angular.module('Meet', [])
 			meetService.toFavor(params).then( function(data) {
 				if (data.status == 1) {
 					favor = true;
+					meetService.showMsg("收藏成功");
 				} else {
 					favor = false;
+					meetService.showMsg("取消收藏");
 				}
 			}, function(err) {
-
+				meetService.showMsg("收藏失败: " + err["errmsg"]);
 			})
 
-		} else {
-			bindTel();
 		}
 	}
+
+
+
 })

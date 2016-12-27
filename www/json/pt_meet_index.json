@@ -1,5 +1,6 @@
-[{
-	"id": "1001",
+function([{
+	"id": "1001", key : value   json 类型是object
+
 	"title": "2015第十四届中国国际玩具及教育设备展览会",
 	"start_time": "2015-12-01 09:00",
 	"area": "上海新国际博览中心",
@@ -18,4 +19,19 @@
 	"start_time": "2015-12-01 09:00",
 	"area": "上海新国际博览中心",
 	"isfree": "1"
-}]
+}])
+
+OAuth2
+
+URL参数 http GET 请求 http://wwww.51banhui.com/api/meet?id=123&sort=1&callback=function
+PHP 
+JSONP 解决跨域问题 http请求的时候会必须附带一个参数 ?callback=function
+src
+
+[0][Object1], [1][Object2], [2][Object3]
+
+遍历数组
+取到对应object
+objName.id 存取操作
+
+http请求 GET POST

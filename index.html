@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no" />
+    <title></title>
+
+    <link href="./lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+    <link href="./css/common.css" rel="stylesheet">
+    <link href="./css/meet.css" rel="stylesheet">
+    <link href="./css/txh.css" rel="stylesheet">
+    <link href="./css/news.css" rel="stylesheet">
+    <link href="./css/animate.css" rel="stylesheet">
+
+
+<!--     <link href="src/meet/meet.css" rel="stylesheet">
+    <link href="src/news/news.css" rel="stylesheet">
+    <link href="src/home/home.css" rel="stylesheet">
+    <link href="src/mine/mine.css" rel="stylesheet"> -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="./lib/ionic/js/ionic.bundle.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- <script src="lib/ngCordova/dist/ng-cordova.js"></script> -->
+    <!-- <script src="cordova.js"></script> -->
+    <script src="./lib/angular-css/angular-css.min.js"></script>
+    
+    <script src="./lib/oclazyload/dist/ocLazyLoad.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    
+
+    <!-- Core CSS file -->
+    <link rel="stylesheet" href="./lib/photoswipe/dist/photoswipe.css"> 
+
+    <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+         In the folder of skin CSS file there are also:
+         - .png and .svg icons sprite, 
+         - preloader.gif (for browsers that do not support CSS animations) -->
+    <link rel="stylesheet" href="./lib/photoswipe/dist/default-skin/default-skin.css"> 
+    
+    <!-- Core JS file -->
+    <script src="./lib/photoswipe/dist/photoswipe.min.js"></script> 
+    
+    <!-- UI JS file -->
+    <script src="./lib/photoswipe/dist/photoswipe-ui-default.min.js"></script> 
+    
+    <!-- <script type="text/javascript" name="baidu-tc-cerfication" data-appid="8169585" src="http://apps.bdimg.com/cloudaapi/lightapp.js"></script> -->
+  
+    <!-- your app's js -->
+    <script src="./js/app.js"></script>
+    <script src="./js/sha.js"></script>
+    <script src="./js/routes.js"></script>
+    <script src="./js/locals.js"></script>
+    
+    <!-- <script src="js/angularSlideables.js"></script> -->
+    <script src="./src/weixin/weixinService.js"></script>
+    <script src="./js/jsonService.js"></script>
+    <script src="./src/login/loginService.js"></script>
+    <script src="./js/startCtl.js"></script>
+
+    <!-- 百度统计 -->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?30e572169c1159801b83617da954d98e";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <!-- 百度推荐 -->
+    <script>document.write(unescape('%3Cdiv id="hm_t_106833"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://crs.baidu.com/t.js?siteId=30e572169c1159801b83617da954d98e&planId=106833&async=0&referer=') + encodeURIComponent(document.referrer) + '&title=' + encodeURIComponent(document.title) + '&rnd=' + (+new Date) + unescape('"%3E%3C/script%3E'));
+    </script>
+
+  </head>
+
+  <body ng-app="starter" ng-controller="StartCtl">
+    <!-- 查看大图 -->
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    
+        <!-- Background of PhotoSwipe. 
+             It's a separate element as animating opacity is faster than rgba(). -->
+        <div class="pswp__bg"></div>
+    
+        <!-- Slides wrapper with overflow:hidden. -->
+        <div class="pswp__scroll-wrap">
+    
+            <!-- Container that holds slides. 
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+    
+            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+            <div class="pswp__ui pswp__ui--hidden">
+    
+                <div class="pswp__top-bar">
+    
+                    <!--  Controls are self-explanatory. Order can be changed. -->
+    
+                    <div class="pswp__counter"></div>
+    
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+    
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+    
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+    
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+    
+                    <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                    <!-- element will get class pswp__preloader--active when preloader is running -->
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                          <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div> 
+                </div>
+    
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+    
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+    
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    </div>
+    <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+<!--     <ion-nav-bar class="bar nav-title-slide-ios7 bar-pink">
+    	
+      <ion-nav-back-button style="color: #fff">
+      	返回
+	   </ion-nav-back-button>
+    </ion-nav-bar> -->
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>  
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->  
+  </body>
+
+
+</html>

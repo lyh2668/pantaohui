@@ -1,0 +1,67 @@
+<html>
+
+<head>
+  <title>我的订单</title>
+</head>
+
+<ion-view view-title="我的订单" ng-init="getOrder()">
+	<ion-content class="myorder-content">
+
+		<!-- <ion-refresher on-refresh="doRefresh()"></ion-refresher> -->
+    
+		<div class="meetList">
+			<a class="card item">
+				<div class="order-part-title">订单信息</div>
+				<div class="meet-part">
+					<div class="title">
+						<div class="order-bind-title">会议名称: </div>
+						<div class="order-bind-txt" ng-bind="data.meetinfo.title"></div>
+					</div>
+					<div class="place">
+						<div class="order-bind-title">会议地点: </div>
+						<div class="order-bind-txt" ng-bind="data.meetinfo.site"></div>
+					</div>
+					<div class="start-time">
+						<div class="order-bind-title">会议时间: </div>
+						<div class="order-bind-txt" ng-bind="data.meetinfo.start_time"></div>
+					</div>
+				</div>
+
+				<div class="ticket-part">			
+					<div>
+						<div class="ticket-type">
+							<div class="order-bind-title">票类型:</div>
+							<div class="order-bind-txt" ng-bind="data.title"></div>
+						</div>
+	
+						<div class="ticket-price">
+							<div class="order-bind-title">票价:</div>
+							<div class="order-bind-txt order-price" class="ticket-price-number" ng-bind="data.price"></div>
+						</div>
+	
+						<div ng-if="data.number" class="ticket-number">
+							<div class="order-bind-title">票码:</div>
+							<div class="order-bind-txt" ng-bind="data.number"></div>
+						</div>
+					</div>
+				</div>
+			</a>
+
+			<a class="card item">
+				<div class="order-part-title">请选择支付方式</div>
+				<div class="order-way">
+					<div class="wechat-pay">
+						<div class="wechat-pay-desc">
+						 <h2>微信支付</h2>
+						 <p>推荐微信用户用该方式支付</p>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="button button-full button-positive" ng-click="toPay(data.id)">确认支付</div>
+
+	</ion-content>
+</ion-view>
+</html>

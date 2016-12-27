@@ -4,13 +4,11 @@ angular.module('Routes', [])
 	
 	// $ionicConfigProvider.templates.maxPrefetch(0);
 	$ionicConfigProvider.views.swipeBackEnabled(true);
-	// $locationProvider.html5Mode(true);
-	$ionicConfigProvider.views.swipeBackEnabled(true);
+	$locationProvider.html5Mode( true ).hashPre;
 	$ionicConfigProvider.tabs.style("standard");
 
 	$stateProvider
 		.state("tabs", {
-			url: "/tab",
 			abstract: true,
 			templateUrl: "templates/tabs.html",
 			css: ["css/common.css"],
@@ -21,6 +19,16 @@ angular.module('Routes', [])
       	}],
      	}
 		})
+
+		// .state("tabs.login", {
+		// 	url: "/login",
+		// 	templateUrl: "src/login/login.html",
+		// 	resolve: {
+  //     	loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+  //       	return $ocLazyLoad.load(['src/login/loginCtl.js', 'src/login/login.css'])
+  //     	}]
+  //   	}
+		// })
 
 		.state("tabs.home", {
 			url: "/home",
@@ -38,7 +46,7 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.home-meetDetail", {
-			url: "/home/meetDetail/:id",
+			url: "/hot-meet-detail?=:id",
 			cache: 'false',
 			views: {
 				"home-tab": {
@@ -87,7 +95,7 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.meet-detail", {
-			url: "/meet/detail/:id",
+			url: "/meet-detail?=:id",
 			cache: 'false',
 			views: {
 				"meet-tab": {
@@ -111,7 +119,7 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.meet-citylist", {
-			url: "/meet/citylist",
+			url: "/citylist",
 			views: {
 				"meet-tab": {
 					templateUrl: "src/city/city.html",
@@ -134,7 +142,7 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.meet-search", {
-			url: "/meet/search",
+			url: "/meet-search",
 			views: {
 				"meet-tab": {
 					templateUrl: "src/search/search.html",
@@ -154,7 +162,7 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.home-search", {
-			url: "/home/search",
+			url: "/home-search",
 			views: {
 				"home-tab": {
 					templateUrl: "src/search/search.html",
@@ -173,21 +181,21 @@ angular.module('Routes', [])
 			}
 		})
 
-		.state("tabs.meet-screen", {
-			url: "/meet/screen",
-			views: {
-				"meet-tab": {
-					templateUrl: "src/screen/screen.html",
-					controller: "ScreenCtl",
-					css: "src/screen/screen.css"
-				}
-			},
-			resolve: {
-      	loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
-        	return $ocLazyLoad.load('src/screen/screenCtl.js')
-      	}]
-    	}
-		})
+		// .state("tabs.meet-screen", {
+		// 	url: "/meet/screen",
+		// 	views: {
+		// 		"meet-tab": {
+		// 			templateUrl: "src/screen/screen.html",
+		// 			controller: "ScreenCtl",
+		// 			css: "src/screen/screen.css"
+		// 		}
+		// 	},
+		// 	resolve: {
+  //     	loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+  //       	return $ocLazyLoad.load('src/screen/screenCtl.js')
+  //     	}]
+  //   	}
+		// })
 
 		.state("tabs.news", {
 			url: "/news",
@@ -208,7 +216,7 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.news-detail", {
-			url: "/news/detail/:id",
+			url: "/news-detail?=:id",
 			cache: 'false',
 			views: {
 				"news-tab": {
@@ -223,6 +231,87 @@ angular.module('Routes', [])
         	})
       	}]
     	}
+		})
+
+		.state("tabs.find", {
+			url: "/find",
+			views: {
+				"find-tab": {
+					templateUrl: "src/find/find.html",
+					controller: "FindCtl"
+				}
+			},
+			params: {
+
+			},
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load('src/find/findService.js').then(function() {
+						return $ocLazyLoad.load(['src/find/findCtl.js', 'src/find/find.css'])
+					})
+				}]
+			}
+		})
+
+		.state("tabs.find-detail", {
+			url: "/find-detial?=:id",
+			cache: false,
+			views: {
+				"find-tab": {
+					templateUrl: "src/find/detail/findDetail.html",
+					controller: "FindDetailCtl"
+				}
+			},
+			params: {
+
+			},
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load('src/find/detail/findDetailService.js').then(function() {
+						return $ocLazyLoad.load(['src/find/detail/findDetailCtl.js', 'src/find/detail/findDetail.css'])
+					})
+				}]
+			}
+		})
+
+		.state("tabs.find-message", {
+			url: "/find-message",
+			views: {
+				"find-tab": {
+					templateUrl: "src/find/message/findMessage.html",
+					controller: "FindMessageCtl"
+				}
+			},
+			params: {
+
+			},
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load('src/find/message/findMessageService.js').then(function(AuthService) {
+						return $ocLazyLoad.load(['src/find/message/findMessageCtl.js', 'src/find/message/findMessage.css'])
+					})
+				}]
+			}
+		})
+
+		.state("tabs.find-publish", {
+			url: "/find-publish",
+			views: {
+				"find-tab": {
+					templateUrl: "src/find/publish/findPublish.html",
+					controller: "FindPublishCtl"
+				}
+			},
+			params: {
+
+			},
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load('src/find/publish/findPublishService.js').then(function() {
+						return $ocLazyLoad.load(['src/find/publish/findPublishCtl.js', 'src/find/publish/findPublish.css'])
+					})
+				}]
+			}
 		})
 
 		.state("tabs.mine", {
@@ -244,40 +333,8 @@ angular.module('Routes', [])
     	}
 		})
 
-		.state("tabs.login", {
-			url: "/mine/login",
-			views: {
-				"mine-tab": {
-					templateUrl: "src/login/login.html",
-					controller: "LoginCtl"
-				}
-			},
-			resolve: {
-      	loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
-        	return $ocLazyLoad.load(['src/login/loginCtl.js', 'src/login/login.css'])
-      	}]
-    	}
-		})
-
-		.state("tabs.register", {
-			url: "/login/register",
-			views: {
-				"mine-tab": {
-					templateUrl: "src/login/register.html",
-					controller: "RegisterCtl"
-				}
-			},
-			resolve: {
-				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
-					return $ocLazyLoad.load('src/login/registerService.js').then(function() {
-						return $ocLazyLoad.load(['src/login/registerCtl.js', 'src/login/register.css'])
-					})
-				}]
-			}
-		})
-
 		.state("tabs.userInfo", {
-			url: "/mine/userInfo",
+			url: "/mine-userInfo",
 			views: {
 				"mine-tab": {
 					templateUrl: "src/mine/userInfo.html",
@@ -292,10 +349,10 @@ angular.module('Routes', [])
 		})
 
 		.state("tabs.myPublishMeet", {
-			url: "/mine/myPublishMeet",
+			url: "/mine-mypublishmeet",
 			views: {
 				"mine-tab": {
-					templateUrl: "src/mine/myPublishMeet.html",
+					templateUrl: "src/mine/myPublish/myPublishMeet.html",
 					controller: "myPublishMeetCtl"
 				}
 			},
@@ -304,18 +361,18 @@ angular.module('Routes', [])
 			},
 			resolve: {
 				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
-					return $ocLazyLoad.load(['src/mine/myPublishMeetService.js']).then(function() {
-						return $ocLazyLoad.load(['src/mine/myPublishMeetCtl.js', 'src/mine/myPublishMeet.css'])
+					return $ocLazyLoad.load(['src/mine/myPublish/myPublishMeetService.js']).then(function() {
+						return $ocLazyLoad.load(['src/mine/myPublish/myPublishMeetCtl.js', 'src/mine/myPublish/myPublishMeet.css'])
 					})
 				}]
 			}
 		})
 
 		.state("tabs.myFavorMeet", {
-			url: "/mine/myFavorMeet",
+			url: "/mine-myfavormeet",
 			views: {
 				"mine-tab": {
-					templateUrl: "src/mine/myFavorMeet.html",
+					templateUrl: "src/mine/myFavor/myFavorMeet.html",
 					controller: "myFavorMeetCtl"
 				}
 			},
@@ -324,15 +381,35 @@ angular.module('Routes', [])
 			},
 			resolve: {
 				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
-					return $ocLazyLoad.load(['src/mine/myFavorMeetService.js']).then(function() {
-						return $ocLazyLoad.load(['src/mine/myFavorMeetCtl.js', 'src/mine/myFavorMeet.css'])
+					return $ocLazyLoad.load(['src/mine/myFavor/myFavorMeetService.js']).then(function() {
+						return $ocLazyLoad.load(['src/mine/myFavor/myFavorMeetCtl.js', 'src/mine/myFavor/myFavorMeet.css'])
+					})
+				}]
+			}
+		})
+
+		.state("tabs.myApplyMeet", {
+			url: "/mine-myapplymeet",
+			views: {
+				"mine-tab": {
+					templateUrl: "src/mine/myApply/myApplyMeet.html",
+					controller: "myApplyMeetCtl"
+				}
+			},
+			params: {
+				uid: null
+			},
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load(['src/mine/myApply/myApplyMeetService.js']).then(function() {
+						return $ocLazyLoad.load(['src/mine/myApply/myApplyMeetCtl.js', 'src/mine/myApply/myApplyMeet.css'])
 					})
 				}]
 			}
 		})
 
 		.state("tabs.about", {
-			url: "/mine/about",
+			url: "/mine-about",
 			views: {
 				"mine-tab": {
 					templateUrl: "src/mine/about/about.html",
@@ -346,7 +423,64 @@ angular.module('Routes', [])
 			}
 		})
 
-		
+		.state("login", {
+			url: "/login",
+			// views: {
+				// "mine-tab": {
+					templateUrl: "src/login/login.html",
+					controller: "LoginCtl",
+				// }
+			// },
+			params: {
+				fromState: "", // 来自哪个state
+				fromUrl: "",
+				toState: "",
+				toUrl: "",
+				redirectUri: "",
+			},
+			resolve: {
+      	loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+      		return $ocLazyLoad.load('src/login/loginService.js').then(function() {
+						return $ocLazyLoad.load(['src/login/loginCtl.js', 'src/login/login.css'])
+					})
+      	}]
+    	}
+		})
 
-		$urlRouterProvider.otherwise("/tab/home")
+		.state("register", {
+			url: "/register",
+			// views: {
+			// 	"mine-tab": {
+					templateUrl: "src/login/register.html",
+					controller: "RegisterCtl",
+			// 	}
+			// },
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load('src/login/registerService.js').then(function() {
+						return $ocLazyLoad.load(['src/login/registerCtl.js', 'src/login/register.css'])
+					})
+				}]
+			}
+		})
+		
+		.state("order", {
+			url: "/order?=:id",
+			cache: false,
+			templateUrl: "src/mine/myOrder/myOrder.html",
+			controller: "myOrderCtl",
+			resolve: {
+				loadMyFiles: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load(['src/mine/myOrder/myOrderService.js']).then(function() {
+						return $ocLazyLoad.load(['src/mine/myOrder/myOrderCtl.js', 'src/mine/myOrder/myOrder.css'])
+					})
+				}]
+			}
+		})
+
+		$urlRouterProvider.otherwise("/home")
 })
+
+
+
+
